@@ -1,0 +1,19 @@
+.shape {
+  display: flex;
+  flex-direction: row;
+  &__icon {
+    height: 48px;
+    aspect-ratio: 1/1;
+  };
+  &__title {
+    font-size: 24px;
+    width: -webkit-fill-available;
+  };
+  &__image {
+    height: 75px;
+    width: fit-content;
+    max-width: 120px;
+    image-rendering: -moz-crisp-edges;
+    flex-shrink: 0;
+  };
+}
