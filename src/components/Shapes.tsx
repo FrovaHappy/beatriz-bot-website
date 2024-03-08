@@ -2,8 +2,9 @@
 import React from "react";
 import { useDragAndDrop } from "@formkit/drag-and-drop/react";
 import { Image, Text, Name, Icon } from "@/types/Canvas.types";
-import "@/styles/Shapes.style.css"
-type Shape = Image | Text | Name | Icon;
+import "@/styles/Shapes.style.css";
+import Shape from "./Shape";
+type Shape = Partial<Image & Text & Name & Icon>;
 interface Props {
   shapes: Array<Shape>;
 }
@@ -13,9 +14,12 @@ export default function Shapes({ shapes }: Props) {
   return (
     <ul ref={parent}>
       {tapes.map((tape, i) => (
-        <li className='component' key={tape.type + i}>
-          {tape.type + i}
-        </li>
+        <Shape
+          key={tape.type! + i}
+          icon={tape.type!}
+          title={tape.shape ?? tape.content ?? tape.nameType ?? `${tape.width} x ${tape.height}`}
+          image={tape.img}
+        />
       ))}
     </ul>
   );
