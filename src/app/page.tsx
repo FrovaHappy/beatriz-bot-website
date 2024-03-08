@@ -1,7 +1,8 @@
 'use client'
-import Image from "next/image";
 import styles from "./page.module.css";
 import getBase64 from "@/utils/getBase64";
+import Shapes from "@/components/Shapes";
+import canvas from "./welcome.json"
 export default function Home() {
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -21,9 +22,11 @@ export default function Home() {
     })
     const response = await result.json() // response.data is an object containing the image URL
     console.log(response)
-}
+} 
+  const layers = canvas.layers.map(l => {return {...l, id: Math.round(Math.random() * 1000)}}) 
   return (
     <main className={styles.main}>
+      <Shapes shapes={layers}/>
       <form action="" onSubmit={submit}>
         <input name="file" type="file" maxLength={1}/>
         <button type="submit">Submit</button>
