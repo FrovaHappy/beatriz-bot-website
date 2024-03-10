@@ -1,11 +1,11 @@
 export interface Canvas {
   height: number;
   width: number;
-  layers: Record<string, any>[];
+  layers: Layer[];
   background?: string | null | undefined;
   colorDominate?: string | null | undefined;
 }
-
+export type Layer = Partial<Image & Text & Name & Icon> & {id: number};
 export interface Image {
   type: string;
   height: number;
