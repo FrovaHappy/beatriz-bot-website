@@ -1,3 +1,4 @@
+"use client"
 import { createContext, useContext, useEffect, useState } from "react";
 import welcome from "./welcome.json";
 import { Canvas } from "@/types/Canvas.types";
