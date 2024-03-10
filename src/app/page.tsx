@@ -3,6 +3,7 @@ import styles from "./page.module.css";
 import getBase64 from "@/utils/getBase64";
 import Shapes from "@/components/Shapes";
 import canvas from "./welcome.json";
+import { addIdOfLayers } from "./canvasParser";
 export default function Home() {
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -23,9 +24,7 @@ export default function Home() {
     const response = await result.json(); // response.data is an object containing the image URL
     console.log(response);
   }
-  const layers = canvas.layers.map((l) => {
-    return { ...l, id: Math.round(Math.random() * 1000) };
-  });
+  const layers = addIdOfLayers(canvas).layers
   return (
     <main className={styles.main}>
       <Shapes shapes={layers} />
