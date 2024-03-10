@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useDragAndDrop } from "@formkit/drag-and-drop/react";
 import { Image, Text, Name, Icon } from "@/types/Canvas.types";
-import "@/styles/Shapes.style.css";
+import style from "./Shapes.module.scss"
 import Shape from "./Shape";
 import { useCanvasCtx } from "@/app/context";
 import { addIdOfLayers } from "@/app/canvasParser";
@@ -17,7 +17,7 @@ export default function Shapes() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tapes])
   return (
-    <ul ref={parent}>
+    <ul ref={parent} className={style.content}>
       {tapes.map((tape, i) => (
         <Shape
           key={tape.id}

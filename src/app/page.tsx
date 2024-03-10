@@ -1,7 +1,7 @@
 "use client";
 import styles from "./page.module.css";
 import getBase64 from "@/utils/getBase64";
-import Shapes from "@/components/Shapes";
+import Shapes from "./Shapes";
 import HomeContext from "./context";
 export default function Home() {
   async function submit(e: React.FormEvent<HTMLFormElement>) {
