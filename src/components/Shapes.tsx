@@ -4,13 +4,13 @@ import { useDragAndDrop } from "@formkit/drag-and-drop/react";
 import { Image, Text, Name, Icon } from "@/types/Canvas.types";
 import "@/styles/Shapes.style.css";
 import Shape from "./Shape";
+import { useCanvasCtx } from "@/app/context";
+import { addIdOfLayers } from "@/app/canvasParser";
 type Shape = Partial<Image & Text & Name & Icon> & {id: number};
-interface Props {
-  shapes: Array<Shape>;
-}
 
-export default function Shapes({ shapes }: Props) {
-  const [parent, tapes] = useDragAndDrop<HTMLUListElement, Shape>(shapes);
+export default function Shapes() {
+  const [canvas] = useCanvasCtx()
+  const [parent, tapes] = useDragAndDrop<HTMLUListElement, Shape>(addIdOfLayers(canvas).layers);
   return (
     <ul ref={parent}>
       {tapes.map((tape, i) => (
