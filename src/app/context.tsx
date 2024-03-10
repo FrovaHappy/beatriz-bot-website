@@ -1,15 +1,7 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import welcome from "./welcome.json";
 import { Canvas } from "@/types/Canvas.types";
 import { State } from "@/types/types";
-const restoreCanvas = (): Canvas => {
-  try {
-    const i = window.localStorage.getItem("canvas");
-    return JSON.parse(i!);
-  } catch (e) {
-    return welcome;
-  }
-};
 
 const HomeContext = createContext<State<Canvas> | null>(null);
 
@@ -21,9 +13,12 @@ export function useCanvasCtx() {
 }
 
 export default function Context({ children }: React.PropsWithChildren) {
-  const [canvas, setCanvas] = useState(restoreCanvas());
+  const restoreCanvas = JSON.parse(window.localStorage.getItem("canvas") ?? 'null' )?? welcome
+  const [canvas, setCanvas] = useState(restoreCanvas);
+  console.log(canvas)
   useEffect(() => {
-    
+    console.log('ola')
+    window.localStorage.setItem('canvas', JSON.stringify(canvas));
   }, [canvas]);
   return (
     <HomeContext.Provider value={[canvas, setCanvas]}>
