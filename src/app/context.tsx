@@ -14,11 +14,16 @@ export function useCanvasCtx() {
 }
 
 export default function Context({ children }: React.PropsWithChildren) {
-  const restoreCanvas = JSON.parse(window.localStorage.getItem("canvas") ?? 'null' )?? welcome
-  const [canvas, setCanvas] = useState(restoreCanvas);
+  const [canvas, setCanvas] = useState(null as unknown as Canvas);
   useEffect(() => {
+    const restoreCanvas = JSON.parse(window.localStorage.getItem("canvas") ?? 'null') ?? welcome
+    setCanvas(restoreCanvas)
+  }, []);
+  useEffect(() => {
+    if (!canvas) return
     window.localStorage.setItem('canvas', JSON.stringify(canvas));
   }, [canvas]);
+  if (!canvas) return <>building component</>
   return (
     <HomeContext.Provider value={[canvas, setCanvas]}>
       {children}
