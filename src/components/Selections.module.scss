@@ -1,0 +1,33 @@
+.main {
+  padding: 2.5% 5%;
+  display: flex;
+  font-size: 90%;
+  position: relative;
+}
+.selection {
+  display: flex;
+}
+.values {
+  background-color: #3b3b3b;
+  display: flex;
+  width: -webkit-fill-available;
+  flex-direction: column;
+  visibility: hidden;
+  top: 100%;
+  position: absolute;
+}
+.show {
+  visibility: visible;
+}
+.value {
+  padding: 2.5% 5%;
+  display: flex;
+  flex-wrap: nowrap;
+  text-wrap: nowrap;
+  align-items: center;
+  gap: 5%;
+  & p {
+    text-wrap: nowrap;
+    width: fit-content;
+  }
+}
