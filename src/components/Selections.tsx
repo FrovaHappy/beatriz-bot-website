@@ -13,7 +13,11 @@ interface Props {
   height?: `${number}px` | `${number}rem`;
   values: Values[];
 }
-
+const ICONS_STYLE: React.CSSProperties = {
+  height: "100%",
+  aspectRatio: "1/1",
+  flexShrink: "0",
+};
 export default function Selections({
   idSelect,
   values,
@@ -33,7 +37,7 @@ export default function Selections({
           {Icon ? <Icon style={{ height }} /> : undefined}
           {value?.title ?? "selecciona un elemento."}
         </span>
-        <IconChevronDown style={{ height: "100%", aspectRatio: "1/1", flexShrink: '0'}} />
+        <IconChevronDown style={ICONS_STYLE} />
       </div>
       <div className={`${style.values} + ${show ? style.show : ""}`}>
         {values.map((v) => {
@@ -45,9 +49,7 @@ export default function Selections({
               className={`${style.value} ${value?.id === v.id ? "active" : ""}`}
               style={{ height }}
             >
-              {IconItem ? (
-                <IconItem style={{ height: "100%", aspectRatio: "1/1" ,flexShrink: '0'}} />
-              ) : undefined}
+              {IconItem ? <IconItem style={ICONS_STYLE} /> : undefined}
               <p>{v.title}</p>
             </div>
           );
