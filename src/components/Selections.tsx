@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import style from "./Selections.module.scss";
+import inputStyle from "./Input.module.scss";
 import IconChevronDown from "@/app/icons/IconChevronDown";
 
 interface Values {
@@ -9,6 +10,7 @@ interface Values {
   title: string;
 }
 interface Props {
+  title?: string;
   idSelect: string;
   height?: `${number}px` | `${number}rem`;
   values: Values[];
@@ -19,6 +21,7 @@ const ICONS_STYLE: React.CSSProperties = {
   flexShrink: "0",
 };
 export default function Selections({
+  title,
   idSelect,
   values,
   height = "1.5625rem",
@@ -28,17 +31,18 @@ export default function Selections({
   const Icon = value?.icon;
   const Select = (
     <div
-      className={style.main}
+      className={inputStyle.content}
       onClick={() => setShow(!show)}
       style={{ height }}
     >
-      <div className={style.selection}>
-        <span className={style.value}>
-          {Icon ? <Icon style={{ height }} /> : undefined}
-          {value?.title ?? "selecciona un elemento."}
-        </span>
-        <IconChevronDown style={ICONS_STYLE} />
-      </div>
+      {title ? <span className={inputStyle.title}>{title}</span> : undefined}
+
+      <span className={inputStyle.props}>
+        {Icon ? <Icon style={{ height }} /> : undefined}
+        {value?.title ?? "selecciona..."}
+      </span>
+      <IconChevronDown style={ICONS_STYLE} />
+
       <div className={`${style.values} + ${show ? style.show : ""}`}>
         {values.map((v) => {
           const IconItem = v.icon;

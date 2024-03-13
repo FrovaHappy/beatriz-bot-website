@@ -1,14 +1,10 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
+import inputStyle from "./Input.module.scss";
 type Value = string | null;
 type Reg = {
   regex: RegExp;
   msg: string;
 };
-interface Base {
-  type: "text" | "number";
-  defaultValue?: string;
-  placeholder?: string;
-}
 interface InputText {
   regexArray: Reg[];
 }
@@ -17,7 +13,12 @@ interface InputNumber {
   min: number;
   max: number;
 }
-interface Props extends Base {
+interface Props {
+  height?: `${number}px` | `${number}rem`;
+  title?: string;
+  type: "text" | "number";
+  defaultValue?: string;
+  placeholder?: string;
   text?: InputText;
   number?: InputNumber;
 }
@@ -26,13 +27,17 @@ const ERROR = {
   invalidNumber: "number type was specified but received text props",
   doubleCoincidence: "Collisions error in input, only one type can be used.",
 };
-export default function Input({
-  text,
-  number,
-  type,
-  defaultValue,
-  placeholder,
-}: Props) {
+export default function Input(props: Props) {
+  const {
+    title,
+    text,
+    number,
+    type,
+    defaultValue,
+    placeholder,
+    height = "1.5625rem",
+  } = props;
+
   const [value, setValue] = useState<Value>(null);
   const [msgError, setMsgError] = useState<Value>(null);
 
@@ -45,7 +50,7 @@ export default function Input({
     const m = e.target.value;
     if (number) {
       const test =
-        Number.parseInt(m) < number.max && Number.parseInt(m) > number.min;
+        Number.parseInt(m) <= number.max && Number.parseInt(m) >= number.min;
       if (!test) {
         setMsgError(
           `el numero debe ser mayor a ${number.min} o menor a ${number.max}.`
@@ -69,8 +74,13 @@ export default function Input({
     setValue(m);
   };
   const Component = (
-    <div>
+    <div
+      className={`${inputStyle.content} ${msgError ? inputStyle.error : ""}`}
+      style={{ height }}
+    >
+      {title ? <span className={inputStyle.title}>{title}</span> : undefined}
       <input
+        className={inputStyle.props}
         type={type}
         step={number?.step}
         min={number?.min}
@@ -79,7 +89,9 @@ export default function Input({
         placeholder={placeholder}
         onChange={onChange}
       />
-      {msgError ? <span>{msgError}</span> : undefined}
+      {msgError ? (
+        <span className={inputStyle.error}>{msgError}</span>
+      ) : undefined}
     </div>
   );
   return [value, Component] as [value: Value, select: JSX.Element];
