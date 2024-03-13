@@ -1,18 +1,18 @@
 :root {
   /* Colors */
-  --color-primary: #6507AF;
+  --color-primary: #6507af;
   --color-danger: #f44336;
-  --color-secondary: #2AB007;
+  --color-secondary: #2ab007;
   --color-bg: #16151a;
   --color-content: #26252a;
-  --color-content-hover : #3d3b42;
+  --color-content-hover: #3d3b42;
   --color-text: #f1f1f3;
   --color-text-alt: #dbdce1;
   /* UI Directives*/
   /* --shadow: #ffffff26 0px 3px 12px; */
   --shadow: #ffffff26 0px 2px 8px;
-  --border-1x: .25rem;
-  --border-2x: .5rem;
+  --border-1x: 0.25rem;
+  --border-2x: 0.5rem;
   --border-3x: 1rem;
   --z-1: 10;
   --z-2: 20;
@@ -55,7 +55,7 @@ a {
   text-decoration: none;
 }
 /* Reset input*/
-input{
+input {
   all: unset;
 }
 input[type="number"]::-webkit-inner-spin-button,
