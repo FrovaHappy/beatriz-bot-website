@@ -1,5 +1,6 @@
 import { useState } from "react";
 import inputStyle from "./Input.module.scss";
+import { getPadding } from "@/utils/getPadding";
 type Value = string | null;
 type Reg = {
   regex: RegExp;
@@ -74,16 +75,22 @@ export default function Input(props: Props) {
     setMsgError(null);
     setValue(m);
   };
-  const onBlur:React.FocusEventHandler<HTMLInputElement> =  (e) => {
-    e.preventDefault()
-    if (e.target.value === '') e.target.value = number?.defaultValue || text?.defaultValue || '';
-  }
+  const onBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
+    e.preventDefault();
+    if (e.target.value === "")
+      e.target.value = number?.defaultValue || text?.defaultValue || "";
+  };
   const Component = (
     <div
       className={`${inputStyle.content} ${msgError ? inputStyle.error : ""}`}
-      style={{ height }}
+      style={{ height, padding: getPadding(height) }}
     >
-      {title ? <span className={inputStyle.title}>{title}</span> : undefined}
+      {title ? (
+        <>
+          <span className={inputStyle.title}>{title}</span>{" "}
+          <span className={inputStyle["title--line"]} />
+        </>
+      ) : undefined}
       <input
         className={inputStyle.props}
         type={type}

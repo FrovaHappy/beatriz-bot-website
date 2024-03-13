@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import style from "./Selections.module.scss";
 import inputStyle from "./Input.module.scss";
 import IconChevronDown from "@/app/icons/IconChevronDown";
+import { getFontSize, getHeightIcons, getPadding } from "@/utils/getPadding";
 
 interface Values {
   id: string;
@@ -13,15 +14,13 @@ interface Props {
   title?: string;
   idSelect: string;
   height?: `${number}px` | `${number}rem`;
+  width?: `${number}px` | `${number}rem` | "auto";
   values: Values[];
 }
-const ICONS_STYLE: React.CSSProperties = {
-  height: "100%",
-  aspectRatio: "1/1",
-  flexShrink: "0",
-};
+
 export default function Selections({
   title,
+  width = "auto",
   idSelect,
   values,
   height = "1.5625rem",
@@ -29,16 +28,31 @@ export default function Selections({
   const [value, setValue] = useState(values.find((v) => v.id === idSelect));
   const [show, setShow] = useState(false);
   const Icon = value?.icon;
+  const ICONS_STYLE: React.CSSProperties = {
+    height: getHeightIcons(height),
+    aspectRatio: "1/1",
+    flexShrink: "0",
+  };
   const Select = (
     <div
       className={inputStyle.content}
       onClick={() => setShow(!show)}
-      style={{ height }}
+      style={{
+        height,
+        width,
+        padding: getPadding(height),
+        fontSize: getFontSize(height),
+      }}
     >
-      {title ? <span className={inputStyle.title}>{title}</span> : undefined}
+      {title ? (
+        <>
+          <span className={inputStyle.title}>{title}</span>{" "}
+          <span className={inputStyle["title--line"]} />
+        </>
+      ) : undefined}
 
+      {Icon ? <Icon style={ICONS_STYLE} /> : undefined}
       <span className={inputStyle.props}>
-        {Icon ? <Icon style={{ height }} /> : undefined}
         {value?.title ?? "selecciona..."}
       </span>
       <IconChevronDown style={ICONS_STYLE} />
