@@ -1,5 +1,7 @@
 .values {
   background-color: var(--color-content);
+  border-radius: var(--border-2x);
+  overflow: hidden;
   box-shadow: var(--shadow);
   display: flex;
   width: -webkit-fill-available;
@@ -8,22 +10,21 @@
   top: 120%;
   position: absolute;
   z-index: var(--z-1);
-  &:hover {
-    color: yellow;
-    background: var(--color-danger);
-  }
 }
 .show {
   visibility: visible;
 }
 .value {
   padding: 2.5% 5%;
+  cursor: pointer;
   display: flex;
   flex-wrap: nowrap;
   text-wrap: nowrap;
   align-items: center;
   gap: 5%;
-
+  &:hover {
+    background: var(--color-content-hover);
+  }
   & p {
     text-wrap: nowrap;
     width: fit-content;
