@@ -1,20 +1,17 @@
-.main {
-  padding: 2.5% 5%;
-  display: flex;
-  font-size: 90%;
-  position: relative;
-}
-.selection {
-  display: flex;
-}
 .values {
-  background-color: #3b3b3b;
+  background-color: var(--color-content);
+  box-shadow: var(--shadow);
   display: flex;
   width: -webkit-fill-available;
   flex-direction: column;
   visibility: hidden;
-  top: 100%;
+  top: 120%;
   position: absolute;
+  z-index: var(--z-1);
+  &:hover {
+    color: yellow;
+    background: var(--color-danger);
+  }
 }
 .show {
   visibility: visible;
@@ -26,6 +23,7 @@
   text-wrap: nowrap;
   align-items: center;
   gap: 5%;
+
   & p {
     text-wrap: nowrap;
     width: fit-content;
