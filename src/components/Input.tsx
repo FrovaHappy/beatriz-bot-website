@@ -6,9 +6,11 @@ type Reg = {
   msg: string;
 };
 interface InputText {
+  defaultValue?: string;
   regexArray: Reg[];
 }
 interface InputNumber {
+  defaultValue?: `${number}`;
   step: number;
   min: number;
   max: number;
@@ -17,7 +19,6 @@ interface Props {
   height?: `${number}px` | `${number}rem`;
   title?: string;
   type: "text" | "number";
-  defaultValue?: string;
   placeholder?: string;
   text?: InputText;
   number?: InputNumber;
@@ -33,7 +34,6 @@ export default function Input(props: Props) {
     text,
     number,
     type,
-    defaultValue,
     placeholder,
     height = "1.5625rem",
   } = props;
@@ -47,7 +47,8 @@ export default function Input(props: Props) {
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
-    const m = e.target.value;
+    const m =
+      e.target.value || number?.defaultValue || text?.defaultValue || "";
     if (number) {
       const test =
         Number.parseInt(m) <= number.max && Number.parseInt(m) >= number.min;
@@ -73,6 +74,10 @@ export default function Input(props: Props) {
     setMsgError(null);
     setValue(m);
   };
+  const onBlur:React.FocusEventHandler<HTMLInputElement> =  (e) => {
+    e.preventDefault()
+    if (e.target.value === '') e.target.value = number?.defaultValue || text?.defaultValue || '';
+  }
   const Component = (
     <div
       className={`${inputStyle.content} ${msgError ? inputStyle.error : ""}`}
@@ -85,9 +90,10 @@ export default function Input(props: Props) {
         step={number?.step}
         min={number?.min}
         max={number?.max}
-        defaultValue={defaultValue}
+        defaultValue={number?.defaultValue || text?.defaultValue}
         placeholder={placeholder}
         onChange={onChange}
+        onBlur={onBlur}
       />
       {msgError ? (
         <span className={inputStyle.error}>{msgError}</span>
