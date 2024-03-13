@@ -1,25 +1,23 @@
 .content {
   position: relative;
   display: flex;
-  gap: 2.5%;
-  font-size: 90%;
+  align-items: center;
+  gap: 1.5%;
   border: 0.0625rem solid var(--color-content);
   border-radius: var(--border-1x);
-  padding: 2.5%;
   &.error {
     border: 0.0625rem solid var(--color-danger);
     color: var(--color-danger);
   }
 }
 .title {
-  padding-right: 2.5%;
-  display: flex;
-  font-size: 90%;
-  align-items: center;
-  border-right: 1px solid var(--color-text-alt);
+  &--line{
+    width: .0625rem;
+    height: 70%;
+    background: var(--color-text-alt);
+  }
 }
 .props {
-  padding: 2.5% 5%;
   font-weight: 700;
   display: flex;
   flex-wrap: nowrap;
