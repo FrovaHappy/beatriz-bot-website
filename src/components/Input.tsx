@@ -39,7 +39,9 @@ export default function Input(props: Props) {
     height = "1.5625rem",
   } = props;
 
-  const [value, setValue] = useState<Value>(null);
+  const [value, setValue] = useState<Value>(
+    text?.defaultValue || number?.defaultValue || null
+  );
   const [msgError, setMsgError] = useState<Value>(null);
 
   if (type === "text" && number) throw new Error(ERROR.invalidText);
