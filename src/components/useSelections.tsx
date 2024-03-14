@@ -18,7 +18,7 @@ interface Props {
   values: Values[];
 }
 
-export default function Selections({
+export default function useSelections({
   title,
   width = "auto",
   idSelect,
