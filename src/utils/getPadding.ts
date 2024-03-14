@@ -21,3 +21,8 @@ export function getHeightIcons(s: StringUnits) {
   const height = value * 0.70
   return `${height}${unit}`;
 }
+export function calculatePercents (s: StringUnits, percents: number) {
+  const { unit, value } = getUnitValue(s);
+  const fontSize = value * percents
+  return `${fontSize}${unit}`;
+}
