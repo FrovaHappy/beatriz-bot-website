@@ -64,11 +64,13 @@ export default function Selections({
             <div
               key={v.id}
               onClick={() => setValue(v)}
-              className={`${style.value} ${value?.id === v.id ? "active" : ""}`}
+              className={`${inputStyle.props} ${style.value} ${
+                value?.id === v.id ? style["value--active"] : ""
+              }`}
               style={{ height }}
             >
               {IconItem ? <IconItem style={ICONS_STYLE} /> : undefined}
-              <p>{v.title}</p>
+              {v.title}
             </div>
           );
         })}
