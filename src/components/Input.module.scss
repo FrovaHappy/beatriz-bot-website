@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   gap: 1.5%;
-  border: 0.0625rem solid var(--color-content);
+  border: 0.0625rem solid var(--color-content-hover);
   border-radius: var(--border-1x);
   &.error {
     border: 0.0625rem solid var(--color-danger);
@@ -14,7 +14,7 @@
   &--line{
     width: .0625rem;
     height: 70%;
-    background: var(--color-text-alt);
+    background: var(--color-content-hover);
   }
 }
 .props {
