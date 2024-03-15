@@ -3,6 +3,7 @@ import styles from "./page.module.css";
 import getBase64 from "@/utils/getBase64";
 import Shapes from "./sections/shapes";
 import HomeContext from "./context";
+import Options from "./sections/options";
 export default function Home() {
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -28,6 +29,7 @@ export default function Home() {
     <HomeContext>
       <main className={styles.main}>
         <Shapes />
+        <Options/>
         <form action="" onSubmit={submit}>
           <input name="file" type="file" maxLength={1} />
           <button type="submit">Submit</button>
