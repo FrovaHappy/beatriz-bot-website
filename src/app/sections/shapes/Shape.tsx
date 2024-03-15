@@ -11,6 +11,7 @@ interface Props {
   icon: "image" | "text" | "name" | "icon" | string;
   title: string;
   image?: string;
+  onClick?: () => void;
 }
 const icons: Record<
   string,
@@ -21,12 +22,12 @@ const icons: Record<
   text: IconTextResize,
   name: IconAt,
 };
-export default function Shape({ image, icon, title }: Props) {
+export default function Shape({ image, icon, title, onClick }: Props) {
   const imgDefault =
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
   const Icon = icons[icon] ?? IconIconsOff  ;
   return (
-    <li className={style.shape}>
+    <li className={style.shape} onClick={onClick}>
       <Icon className={style.shape__image} />
       <h3 className={style.shape__title}>{title}</h3>
       <img src={image ?? imgDefault} alt="imagen del la capa" className={style.shape__image}/>
