@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 1.5%;
+  gap: 2.5%;
   border: 0.0625rem solid var(--color-content-hover);
   border-radius: var(--border-1x);
   &.error {
@@ -12,7 +12,8 @@
 }
 .title {
   &--line{
-    width: .0625rem;
+    width: 1px;
+    flex-shrink: 0;
     height: 70%;
     background: var(--color-content-hover);
   }
