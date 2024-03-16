@@ -1,10 +1,10 @@
-.content{
+.content {
   width: 20rem;
+  display: flex;
+  flex-direction: column;
   flex-shrink: 0;
   height: -webkit-fill-available;
   overflow: scroll;
-  display: flex;
-  flex-direction: column;
-  gap: .625rem;
   box-sizing: border-box;
+  gap: 0.625rem;
 }
