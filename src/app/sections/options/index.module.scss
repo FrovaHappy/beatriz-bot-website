@@ -1,0 +1,16 @@
+.content {
+  width: 22rem;
+  display: flex;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  height: -webkit-fill-available;
+  overflow: scroll;
+  box-sizing: border-box;
+  padding: 1.25rem;
+  gap: .625rem;
+  background: var(--color-content);
+  border-radius: var(--border-3x);
+}
+.title {
+  width: -webkit-fill-available;
+}

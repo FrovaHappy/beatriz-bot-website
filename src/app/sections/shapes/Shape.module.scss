@@ -1,19 +1,28 @@
 .shape {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  gap: .625rem;
+  padding: .625rem;
+  border-radius: var(--border-2x);
+  background: var(--color-content);
+  border: .0625rem solid transparent;
   &__icon {
-    height: 48px;
+    height: 2rem;
     aspect-ratio: 1/1;
   };
   &__title {
-    font-size: 24px;
+    font-size: 14px;
     width: -webkit-fill-available;
   };
   &__image {
-    height: 75px;
+    height: 3rem;
     width: fit-content;
     max-width: 120px;
     image-rendering: -moz-crisp-edges;
     flex-shrink: 0;
   };
+  &__select {
+    border: .0625rem solid var(--color-primary);
+  }
 }

@@ -1,4 +1,10 @@
 .content{
-  width: 400px;
-  padding: 20px;
+  width: 20rem;
+  flex-shrink: 0;
+  height: -webkit-fill-available;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: .625rem;
+  box-sizing: border-box;
 }

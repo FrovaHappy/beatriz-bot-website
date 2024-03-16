@@ -4,11 +4,12 @@ import useInputText from "@/components/useInputText";
 import useSelections from "@/components/useSelections";
 import { Layer, Text } from "@/types/Canvas.types";
 import { useEffect } from "react";
+import style from "./index.module.scss";
 const LIMIT_CANVAS = 1024;
 const HEIGHT = `2.625rem`;
 export default function TextOptions({ shape }: { shape: Text }) {
   const [canvas, setCanvas] = useCanvasCtx();
-  const [, setShapeModify] = useShapeModifyCtx()
+  const [, setShapeModify] = useShapeModifyCtx();
   const [x, xInput] = useInputNumber({
     defaultValue: `${shape.x}`,
     step: 1,
@@ -55,15 +56,15 @@ export default function TextOptions({ shape }: { shape: Text }) {
     const layers = canvas.layers;
     canvas.layers = layers.map((l) => (l.id === s.id ? s : l));
     setCanvas(JSON.parse(JSON.stringify(canvas)));
-    setShapeModify(s)
+    setShapeModify(s);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [x, y, family, content]);
   return (
     <>
-      <h3>Dimensiones</h3>
+      <h3 className={style.title}>Dimensiones</h3>
       {xInput}
       {yInput}
-      <h3>Texto</h3>
+      <h3 className={style.title}>Texto</h3>
       {contentInput}
       {familySelector}
     </>

@@ -8,6 +8,7 @@ import IconPhoto from "@/app/icons/IconPhoto";
 import IconTextResize from "@/app/icons/IconTextResize";
 import IconUserSquare from "@/app/icons/IconUserSquare";
 import IconIconsOff from "@/app/icons/IconIconsOff";
+import { useShapeIdCtx } from "@/app/context";
 
 interface Props {
   icon: "image" | "text" | "name" | "icon" | string;
@@ -25,6 +26,7 @@ const icons: Record<
   name: IconAt,
 };
 export default function Shape({ image, icon, title, id }: Props) {
+  const [shapeId] = useShapeIdCtx()
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
   const imgDefault =
@@ -40,9 +42,9 @@ export default function Shape({ image, icon, title, id }: Props) {
       ref={setNodeRef}
       {...attributes}
       {...listeners}
-      className={style.shape}
+      className={`${style.shape} ${shapeId === id ? style.shape__select : ''}`}
     >
-      <Icon className={style.shape__image} />
+      <Icon className={style.shape__icon} />
       <h3 className={style.shape__title}>{title}</h3>
       <img
         src={image ?? imgDefault}
