@@ -1,40 +1,68 @@
 "use client";
-import React, { useEffect } from "react";
-import { useDragAndDrop } from "@formkit/drag-and-drop/react";
+import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  arrayMove,
+} from "@dnd-kit/sortable";
+import React, { useEffect, useState } from "react";
 import { Image, Text, Name, Icon } from "@/types/Canvas.types";
 import style from "./Shapes.module.scss";
 import Shape from "./Shape";
-import { useCanvasCtx, useShapeIdCtx } from "@/app/context";
+import { useCanvasCtx, useShapeIdCtx, useShapeModifyCtx } from "@/app/context";
 import { addIdOfLayers } from "@/app/canvasParser";
 type Shape = Partial<Image & Text & Name & Icon> & { id: number };
 
 export default function Shapes() {
   const [canvas, setCanvas] = useCanvasCtx();
   const [shapeId, setShapeId] = useShapeIdCtx();
-  const [parent, tapes] = useDragAndDrop<HTMLUListElement, Shape>(
-    addIdOfLayers(canvas).layers
-  );
+  const [shapeModify, setShapeModify] = useShapeModifyCtx()
+  const [list, setList] = useState(addIdOfLayers(canvas).layers);
   useEffect(() => {
-    if (canvas.layers === tapes) return;
-    setCanvas({ ...canvas, layers: tapes });
+    console.log("Shapes")
+    
+    setList( canvas.layers)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tapes]);
+  }, [shapeModify]);
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (active.id !== over?.id) {
+      setList((shape) => {
+        const oldIndex = shape.findIndex((person) => person.id === active.id);
+        const newIndex = shape.findIndex((person) => person.id === over?.id);
+        const listMoved = arrayMove(shape, oldIndex, newIndex)
+        console.log(listMoved);
+        setCanvas({ ...canvas, layers: listMoved })
+        setShapeModify(listMoved[newIndex])
+        return arrayMove(shape, oldIndex, newIndex);
+      });
+      ;
+    } else {
+      setShapeId(shapeId !== active.id ? (active.id as number) : null);
+    }
+  };
+
   return (
-    <ul ref={parent} className={style.content}>
-      {tapes.map((tape, i) => (
-        <Shape
-          key={tape.id}
-          icon={tape.type!}
-          title={
-            tape.shape ??
-            tape.content ??
-            tape.nameType ??
-            `${tape.width} x ${tape.height}`
-          }
-          image={tape.img}
-          onClick={() => setShapeId(shapeId !== tape.id ? tape.id : null)}
-        />
-      ))}
-    </ul>
+    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+      <ul className={style.content}>
+        <SortableContext items={list} strategy={verticalListSortingStrategy}>
+          {list.map((shape) => (
+            <Shape
+              key={shape.id}
+              id={shape.id}
+              icon={shape.type!}
+              title={
+                shape.shape ??
+                shape.content ??
+                shape.nameType ??
+                `${shape.width} x ${shape.height}`
+              }
+              image={shape.img}
+            />
+          ))}
+        </SortableContext>
+      </ul>
+    </DndContext>
   );
 }

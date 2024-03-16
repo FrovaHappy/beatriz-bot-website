@@ -1,4 +1,4 @@
-import { useCanvasCtx } from "@/app/context";
+import { useCanvasCtx, useShapeModifyCtx } from "@/app/context";
 import useInputNumber from "@/components/useInputNumber";
 import useInputText from "@/components/useInputText";
 import useSelections from "@/components/useSelections";
@@ -8,6 +8,7 @@ const LIMIT_CANVAS = 1024;
 const HEIGHT = `2.625rem`;
 export default function TextOptions({ shape }: { shape: Text }) {
   const [canvas, setCanvas] = useCanvasCtx();
+  const [, setShapeModify] = useShapeModifyCtx()
   const [x, xInput] = useInputNumber({
     defaultValue: `${shape.x}`,
     step: 1,
@@ -53,8 +54,8 @@ export default function TextOptions({ shape }: { shape: Text }) {
     const s = shape as Layer;
     const layers = canvas.layers;
     canvas.layers = layers.map((l) => (l.id === s.id ? s : l));
-    console.log(canvas);
     setCanvas(JSON.parse(JSON.stringify(canvas)));
+    setShapeModify(s)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [x, y, family, content]);
   return (
