@@ -1,19 +1,15 @@
 import { useState } from "react";
 import inputStyle from "./Input.module.scss";
-import { getPadding } from "@/utils/getPadding";
+import MaskInput, { OptionsMaskInput } from "./MaskInput";
 type Value = string | null;
 type Reg = {
   regex: RegExp;
   msg: string;
 };
-interface InputText {
+interface Props extends OptionsMaskInput {
+  placeholder?: string;
   defaultValue?: string;
   regexArray: Reg[];
-}
-interface Props extends InputText {
-  height?: `${number}px` | `${number}rem`;
-  title?: string;
-  placeholder?: string;
 }
 export default function useInputText(props: Props) {
   const {
@@ -21,7 +17,8 @@ export default function useInputText(props: Props) {
     regexArray,
     defaultValue,
     placeholder,
-    height = "1.5625rem",
+    height,
+    width
   } = props;
 
   const [value, setValue] = useState<Value>(defaultValue || null);
@@ -45,18 +42,9 @@ export default function useInputText(props: Props) {
     e.preventDefault();
     if (e.target.value === "") e.target.value = defaultValue || "";
   };
-  const contentClassName = `${inputStyle.content} ${
-    msgError ? inputStyle.error : ""
-  }`;
-  const contentStyle = { height, padding: getPadding(height) };
+
   const Component = (
-    <div className={contentClassName} style={contentStyle}>
-      {title ? (
-        <>
-          <span className={inputStyle.title}>{title}</span>{" "}
-          <span className={inputStyle["title--line"]} />
-        </>
-      ) : undefined}
+    <MaskInput options={{ height, title, width }} className={msgError ? inputStyle.error : ""}>
       <input
         className={inputStyle.props}
         type="text"
@@ -68,7 +56,7 @@ export default function useInputText(props: Props) {
       {msgError ? (
         <span className={inputStyle.error}>{msgError}</span>
       ) : undefined}
-    </div>
+    </MaskInput>
   );
   return [value, Component] as [value: Value, select: JSX.Element];
 }

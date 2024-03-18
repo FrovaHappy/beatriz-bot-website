@@ -3,54 +3,37 @@ import React, { useState } from "react";
 import style from "./Selections.module.scss";
 import inputStyle from "./Input.module.scss";
 import IconChevronDown from "@/app/icons/IconChevronDown";
-import { getFontSize, getHeightIcons, getPadding } from "@/utils/getPadding";
+import { calculatePercents } from "@/utils/getPadding";
+import MaskInput, { OptionsMaskInput } from "./MaskInput";
+import { InputExport } from "@/types/types";
 
-interface Values {
+interface Options {
   id: string;
   icon?: (p: React.AllHTMLAttributes<any>) => React.ReactNode;
   title: string;
 }
-interface Props {
-  title?: string;
+interface Props extends OptionsMaskInput {
   idSelect: string;
-  height?: `${number}px` | `${number}rem`;
-  width?: `${number}px` | `${number}rem` | "auto";
-  values: Values[];
+  values: Options[];
 }
 
-export default function useSelections({
-  title,
-  width = "auto",
-  idSelect,
-  values,
-  height = "1.5625rem",
-}: Props) {
+export default function useSelections(
+  props: Props
+): InputExport<Options | undefined> {
+  const { title, width, idSelect, values, height = "2rem" } = props;
   const [value, setValue] = useState(values.find((v) => v.id === idSelect));
   const [show, setShow] = useState(false);
   const Icon = value?.icon;
   const ICONS_STYLE: React.CSSProperties = {
-    height: getHeightIcons(height),
+    height: calculatePercents(height, 0.7),
     aspectRatio: "1/1",
     flexShrink: "0",
   };
   const Select = (
-    <div
-      className={inputStyle.content}
+    <MaskInput
+      options={{ height, width, title }}
       onClick={() => setShow(!show)}
-      style={{
-        height,
-        width,
-        padding: getPadding(height),
-        fontSize: getFontSize(height),
-      }}
     >
-      {title ? (
-        <>
-          <span className={inputStyle.title}>{title}</span>{" "}
-          <span className={inputStyle["title--line"]} />
-        </>
-      ) : undefined}
-
       {Icon ? <Icon style={ICONS_STYLE} /> : undefined}
       <span className={inputStyle.props}>
         {value?.title ?? "selecciona..."}
@@ -75,8 +58,8 @@ export default function useSelections({
           );
         })}
       </div>
-    </div>
+    </MaskInput>
   );
 
-  return [value, Select] as [value: Values | undefined, select: JSX.Element];
+  return [value, Select];
 }

@@ -1,30 +1,20 @@
 import { useState } from "react";
 import inputStyle from "./Input.module.scss";
-import { getPadding } from "@/utils/getPadding";
+import { InputExport } from "@/types/types";
+import MaskInput, { OptionsMaskInput } from "./MaskInput";
 type Value = string | null;
 
-interface InputNumber {
+interface Props extends OptionsMaskInput {
+  placeholder?: string;
   defaultValue?: `${number}`;
   step: number;
   min: number;
   max: number;
 }
-interface Props extends InputNumber {
-  height?: `${number}px` | `${number}rem`;
-  title?: string;
-  placeholder?: string;
-}
 
-export default function useInputNumber(props: Props) {
-  const {
-    title,
-    max,
-    min,
-    step,
-    defaultValue,
-    placeholder,
-    height = "1.5625rem",
-  } = props;
+export default function useInputNumber(props: Props): InputExport<number> {
+  const { title, max, min, step, defaultValue, placeholder, height, width } =
+    props;
 
   const [value, setValue] = useState<Value>(defaultValue || null);
   const [msgError, setMsgError] = useState<Value>(null);
@@ -48,19 +38,11 @@ export default function useInputNumber(props: Props) {
     e.preventDefault();
     if (e.target.value === "") e.target.value = defaultValue || "";
   };
-  const contentClassName = `${inputStyle.content} ${
-    msgError ? inputStyle.error : ""
-  }`;
-  const contentStyle = { height, padding: getPadding(height) };
-
   const Component = (
-    <div className={contentClassName} style={contentStyle}>
-      {title ? (
-        <>
-          <span className={inputStyle.title}>{title}</span>{" "}
-          <span className={inputStyle["title--line"]} />
-        </>
-      ) : undefined}
+    <MaskInput
+      options={{ height, title, width }}
+      className={msgError ? inputStyle.error : ""}
+    >
       <input
         className={inputStyle.props}
         type="number"
@@ -75,7 +57,7 @@ export default function useInputNumber(props: Props) {
       {msgError ? (
         <span className={inputStyle.error}>{msgError}</span>
       ) : undefined}
-    </div>
+    </MaskInput>
   );
-  return [value, Component] as [value: Value, select: JSX.Element];
+  return [parseFloat(value ?? ""), Component];
 }
