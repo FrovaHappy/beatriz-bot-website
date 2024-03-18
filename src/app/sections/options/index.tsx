@@ -3,6 +3,11 @@ import TextOptions from "./TextOptions";
 import { Text } from "@/types/Canvas.types";
 import { HtmlHTMLAttributes, PropsWithChildren } from "react";
 import style from "./index.module.scss";
+
+export const LIMIT_CANVAS = 1024;
+export const WIDTH_LARGE = "20rem";
+export const WIDTH_SHORT = "9.43rem";
+export const HEIGHT = `2.625rem`;
 function OptionsContent({
   children,
   ...props

@@ -6,10 +6,8 @@ import { Layer, Text } from "@/types/Canvas.types";
 import { useEffect } from "react";
 import style from "./index.module.scss";
 import useColorsInput from "@/components/useColorsInput";
-const LIMIT_CANVAS = 1024;
-const WIDTH_LARGE = "20rem";
-const WIDTH_SHORT = "9.43rem";
-const HEIGHT = `2.625rem`;
+import { HEIGHT, LIMIT_CANVAS, WIDTH_LARGE, WIDTH_SHORT } from ".";
+
 export default function TextOptions({ shape }: { shape: Text }) {
   const [canvas, setCanvas] = useCanvasCtx();
   const [, setShapeModify] = useShapeModifyCtx();
