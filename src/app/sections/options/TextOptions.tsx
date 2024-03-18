@@ -7,8 +7,8 @@ import { useEffect } from "react";
 import style from "./index.module.scss";
 import useColorsInput from "@/components/useColorsInput";
 const LIMIT_CANVAS = 1024;
-const WIDTH_LARGE = '20rem';
-const WIDTH_SHORT = '9.43rem';
+const WIDTH_LARGE = "20rem";
+const WIDTH_SHORT = "9.43rem";
 const HEIGHT = `2.625rem`;
 export default function TextOptions({ shape }: { shape: Text }) {
   const [canvas, setCanvas] = useCanvasCtx();
@@ -20,7 +20,7 @@ export default function TextOptions({ shape }: { shape: Text }) {
     max: LIMIT_CANVAS,
     height: HEIGHT,
     title: "X",
-    width: WIDTH_SHORT
+    width: WIDTH_SHORT,
   });
   const [y, yInput] = useInputNumber({
     defaultValue: `${shape.y}`,
@@ -29,7 +29,7 @@ export default function TextOptions({ shape }: { shape: Text }) {
     max: LIMIT_CANVAS,
     height: HEIGHT,
     title: "y",
-    width: WIDTH_SHORT
+    width: WIDTH_SHORT,
   });
   const [family, familySelector] = useSelections({
     idSelect: shape.family,
@@ -40,7 +40,7 @@ export default function TextOptions({ shape }: { shape: Text }) {
       { id: "Inter", title: "Inter" },
       { id: "Laton", title: "Laton" },
     ],
-    width: WIDTH_LARGE
+    width: WIDTH_LARGE,
   });
   const [content, contentInput] = useInputText({
     defaultValue: shape.content,
@@ -52,7 +52,7 @@ export default function TextOptions({ shape }: { shape: Text }) {
     ],
     height: HEIGHT,
     title: "Content",
-    width: WIDTH_LARGE
+    width: WIDTH_LARGE,
   });
   const [size, sizeInput] = useInputNumber({
     max: LIMIT_CANVAS,
@@ -61,9 +61,14 @@ export default function TextOptions({ shape }: { shape: Text }) {
     defaultValue: `${shape.size}`,
     height: HEIGHT,
     title: "Size",
-    width: WIDTH_SHORT
+    width: WIDTH_SHORT,
   });
-  const [color, colorInput] = useColorsInput({height: HEIGHT, title: "Color", width: WIDTH_SHORT});
+  const [color, colorInput] = useColorsInput({
+    height: HEIGHT,
+    title: "Color",
+    width: WIDTH_SHORT,
+    defaultValue: shape.color,
+  });
   const [weight, weightInput] = useInputNumber({
     max: 1000,
     min: 1,
@@ -71,7 +76,7 @@ export default function TextOptions({ shape }: { shape: Text }) {
     defaultValue: `${shape.weight}`,
     height: HEIGHT,
     title: "Weight",
-    width: WIDTH_SHORT
+    width: WIDTH_SHORT,
   });
   const [limitLetters, limitLettersInput] = useInputNumber({
     max: 250,
@@ -80,7 +85,7 @@ export default function TextOptions({ shape }: { shape: Text }) {
     defaultValue: `${shape.limitLetters}`,
     height: HEIGHT,
     title: "Limit",
-    width: WIDTH_SHORT
+    width: WIDTH_SHORT,
   });
   const [align, alignSelector] = useSelections({
     idSelect: shape.align,
@@ -91,7 +96,7 @@ export default function TextOptions({ shape }: { shape: Text }) {
       { id: "center", title: "center" },
       { id: "right", title: "right" },
     ],
-    width: WIDTH_SHORT
+    width: WIDTH_SHORT,
   });
   const [baseline, baselineSelector] = useSelections({
     idSelect: shape.baseline,
@@ -102,7 +107,7 @@ export default function TextOptions({ shape }: { shape: Text }) {
       { id: "middle", title: "middle" },
       { id: "bottom", title: "bottom" },
     ],
-    width: WIDTH_SHORT
+    width: WIDTH_SHORT,
   });
   useEffect(() => {
     // Dimensions
@@ -123,7 +128,18 @@ export default function TextOptions({ shape }: { shape: Text }) {
     setCanvas(JSON.parse(JSON.stringify(canvas)));
     setShapeModify(s);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [x, y, family, content]);
+  }, [
+    x,
+    y,
+    family,
+    content,
+    size,
+    weight,
+    color,
+    limitLetters,
+    baseline,
+    align
+  ]);
   return (
     <>
       <h3 className={style.title}>Dimensiones</h3>
