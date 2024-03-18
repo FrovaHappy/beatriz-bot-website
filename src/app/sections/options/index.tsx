@@ -3,6 +3,7 @@ import TextOptions from "./TextOptions";
 import { Text } from "@/types/Canvas.types";
 import { HtmlHTMLAttributes, PropsWithChildren } from "react";
 import style from "./index.module.scss";
+import GeneralOptions from "./GeneralOptions";
 
 export const LIMIT_CANVAS = 1024;
 export const WIDTH_LARGE = "20rem";
@@ -30,6 +31,10 @@ export default function Options() {
         </OptionsContent>
       );
     default:
-      return <OptionsContent>Opciones Generales</OptionsContent>;
+      return (
+        <OptionsContent>
+          <GeneralOptions />
+        </OptionsContent>
+      );
   }
 }
