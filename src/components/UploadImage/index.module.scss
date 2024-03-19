@@ -1,0 +1,12 @@
+#fichero {
+  display: none;
+}
+
+.circle {
+  display: inline-block;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  cursor: pointer;
+}
