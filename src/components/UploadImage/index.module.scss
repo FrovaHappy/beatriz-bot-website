@@ -35,3 +35,18 @@
     @include Button(var(--color-bg), var(--color-danger));
   }
 }
+
+.emptyUrl {
+  display: flex;
+  align-items: center;
+  gap: .625rem;
+  border-radius: var(--border-2x);
+  padding: .625rem;
+  cursor: pointer;
+  &__icon{
+    height: 3rem;
+    aspect-ratio: 1/1;
+  }
+  color: var(--color-text-alt) ;
+  border: .0625rem dashed var(--color-content-hover);
+}
