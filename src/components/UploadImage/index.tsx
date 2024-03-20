@@ -3,6 +3,7 @@ import { InputExport } from "@/types/types";
 import useStatus from "./useStatusUpload";
 import IconPencil from "@/app/icons/IconPencil";
 import style from "./index.module.scss";
+import IconTrash from "@/app/icons/IconTrash";
 
 /* eslint-disable @next/next/no-img-element */
 type Url = string | null | undefined;
@@ -15,13 +16,16 @@ interface WithUrlProps {
 }
 function WithUrl({ url, onChange }: WithUrlProps) {
   return (
-    <>
-      <img src={url} alt="image upload" />
-      <input id={style.fichero} type="file" maxLength={1} onChange={onChange} />
-      <label htmlFor={style.fichero} className={style.circle}>
+    <div className={style.withUrl}>
+      <img src={url} alt="image upload" className={style.withUrl__img}/>
+      <input id={style.file} type="file" maxLength={1} onChange={onChange} />
+      <label htmlFor={style.file} className={style.withUrl__edit}>
         <IconPencil />
       </label>
-    </>
+      <button className={style.withUrl__delete}>
+        <IconTrash />
+      </button>
+    </div>
   );
 }
 export default function UploadImage({ defaultValue }: Props): InputExport<Url> {
