@@ -54,7 +54,7 @@ export default function UploadImage({ defaultValue }: Props): InputExport<Url> {
   const Component = (
     <div>
       {(() => {
-        switch (typeof defaultValue) {
+        switch (typeof url) {
           case "string":
             return <WithUrl url={url as string} onChange={onChange} />;
           default:
