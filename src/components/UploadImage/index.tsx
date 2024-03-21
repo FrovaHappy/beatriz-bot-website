@@ -8,7 +8,7 @@ import IconTrash from "@/app/icons/IconTrash";
 const TYPE_OF = "image/png, image/jpeg";
 
 /* eslint-disable @next/next/no-img-element */
-type Url = string | null | undefined;
+type Url = string | undefined;
 interface Props {
   defaultValue: Url;
 }
@@ -52,11 +52,15 @@ export default function UploadImage({ defaultValue }: Props): InputExport<Url> {
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useStatus(setUrl, file);
 
+  useEffect(() => {
+    console.log("Uploading image");
+    setUrl(defaultValue);
+  }, [defaultValue]);
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const files = e.target.files;
     if (!files) {
-      setUrl(null);
+      setUrl(undefined);
       return;
     }
     setFile(files[0]);
