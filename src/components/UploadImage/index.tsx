@@ -74,7 +74,6 @@ export default function UploadImage({ defaultValue }: Props): InputExport<Url> {
           default:
             return <EmptyUrl onChange={onChange}/>;
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
       })()}
     </div>
   );
