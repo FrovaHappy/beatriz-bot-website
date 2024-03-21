@@ -6,20 +6,13 @@ type Reg = {
   regex: RegExp;
   msg: string;
 };
-interface Props extends OptionsMaskInput {
+export interface TextInputProps extends OptionsMaskInput {
   placeholder?: string;
   defaultValue?: string;
   regexArray: Reg[];
 }
-export default function useInputText(props: Props) {
-  const {
-    title,
-    regexArray,
-    defaultValue,
-    placeholder,
-    height,
-    width
-  } = props;
+export default function useInputText(props: TextInputProps) {
+  const { title, regexArray, defaultValue, placeholder, height, width } = props;
 
   const [value, setValue] = useState<Value>(defaultValue || null);
   const [msgError, setMsgError] = useState<Value>(null);
@@ -44,7 +37,10 @@ export default function useInputText(props: Props) {
   };
 
   const Component = (
-    <MaskInput options={{ height, title, width }} className={msgError ? inputStyle.error : ""}>
+    <MaskInput
+      options={{ height, title, width }}
+      className={msgError ? inputStyle.error : ""}
+    >
       <input
         className={inputStyle.props}
         type="text"
