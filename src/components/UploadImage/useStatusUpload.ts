@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { UploadStatus, useUpload } from "./useUpload";
+import { State } from "@/types/types";
 
 export default function useStatus(
   setUrl: (k: string) => void,
@@ -25,5 +26,5 @@ export default function useStatus(
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
-  return status
+  return [status, setStatus] satisfies State<UploadStatus>;
 }

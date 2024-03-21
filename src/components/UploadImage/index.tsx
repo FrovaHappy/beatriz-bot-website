@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InputExport } from "@/types/types";
 import useStatus from "./useStatusUpload";
 import IconPencil from "@/app/icons/IconPencil";
@@ -50,7 +50,7 @@ function EmptyUrl({ onChange }: Omit<WithUrlProps, "url">) {
 export default function UploadImage({ defaultValue }: Props): InputExport<Url> {
   const [url, setUrl] = useState(defaultValue);
   const [file, setFile] = useState<File | null>(null);
-  const status = useStatus(setUrl, file);
+  const [status, setStatus] = useStatus(setUrl, file);
 
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -61,6 +61,31 @@ export default function UploadImage({ defaultValue }: Props): InputExport<Url> {
     }
     setFile(files[0]);
   };
+
+  /** Error Component */
+  useEffect(() => {
+    console.log(status);
+    if (status !== "error") return;
+    const timeOut = setTimeout(() => {
+      setStatus("finished");
+      console.log(url);
+    }, 5000);
+    console.log(timeOut);
+    return;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status]);
+  if (status === "error") {
+    const Component = (
+      <div className={style.error}>
+        <span></span>
+        <p>A ocurrido un error</p>
+        <div className={style.error__line} />
+      </div>
+    );
+    return [url, Component];
+  }
+
+  /** Loading Component */
   if (status === "uploading") {
     const Component = (
       <div className={style.loading}>
@@ -71,10 +96,7 @@ export default function UploadImage({ defaultValue }: Props): InputExport<Url> {
     );
     return [url, Component];
   }
-  if (status === "error") {
-    const Component = <>has ocurred an error </>;
-    return [url, Component];
-  }
+
   const Component = (
     <div>
       {(() => {
