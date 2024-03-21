@@ -64,13 +64,10 @@ export default function UploadImage({ defaultValue }: Props): InputExport<Url> {
 
   /** Error Component */
   useEffect(() => {
-    console.log(status);
     if (status !== "error") return;
-    const timeOut = setTimeout(() => {
+    setTimeout(() => {
       setStatus("finished");
-      console.log(url);
     }, 5000);
-    console.log(timeOut);
     return;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
