@@ -53,7 +53,6 @@ export default function UploadImage({ defaultValue }: Props): InputExport<Url> {
   const [status, setStatus] = useStatus(setUrl, file);
 
   useEffect(() => {
-    console.log("Uploading image");
     setUrl(defaultValue);
   }, [defaultValue]);
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {

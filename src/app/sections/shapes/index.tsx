@@ -19,9 +19,7 @@ export default function Shapes() {
   const [shapeModify, setShapeModify] = useShapeModifyCtx()
   const [list, setList] = useState(addIdOfLayers(canvas).layers);
   useEffect(() => {
-    console.log("Shapes")
-    
-    setList( canvas.layers)
+    setList(canvas.layers);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shapeModify]);
   const handleDragEnd = (event: DragEndEvent) => {
