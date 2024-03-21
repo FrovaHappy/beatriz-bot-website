@@ -5,7 +5,7 @@ import IconPencil from "@/app/icons/IconPencil";
 import style from "./index.module.scss";
 import IconTrash from "@/app/icons/IconTrash";
 
-const TYPE_OF = "image/png, image/jpeg"
+const TYPE_OF = "image/png, image/jpeg";
 
 /* eslint-disable @next/next/no-img-element */
 type Url = string | null | undefined;
@@ -19,9 +19,13 @@ interface WithUrlProps {
 function WithUrl({ url, onChange }: WithUrlProps) {
   return (
     <div className={style.withUrl}>
-      <img src={url} alt="image upload" className={style.withUrl__img}/>
+      <img src={url} alt="image upload" className={style.withUrl__img} />
       <input id={style.file} type="file" maxLength={1} onChange={onChange} />
-      <label htmlFor={style.file} className={style.withUrl__edit} typeof={TYPE_OF}>
+      <label
+        htmlFor={style.file}
+        className={style.withUrl__edit}
+        typeof={TYPE_OF}
+      >
         <IconPencil />
       </label>
       <button className={style.withUrl__delete}>
@@ -31,12 +35,12 @@ function WithUrl({ url, onChange }: WithUrlProps) {
   );
 }
 
-function EmptyUrl({ onChange }: Omit<WithUrlProps, 'url'>) {
+function EmptyUrl({ onChange }: Omit<WithUrlProps, "url">) {
   return (
     <>
       <input id={style.file} type="file" maxLength={1} onChange={onChange} />
       <label htmlFor={style.file} className={style.emptyUrl} typeof={TYPE_OF}>
-        <IconPencil className={style.emptyUrl__icon}/>
+        <IconPencil className={style.emptyUrl__icon} />
         Haz click para agregar una imagen.
       </label>
     </>
@@ -58,7 +62,13 @@ export default function UploadImage({ defaultValue }: Props): InputExport<Url> {
     setFile(files[0]);
   };
   if (status === "uploading") {
-    const Component = <>loading</>;
+    const Component = (
+      <div className={style.loading}>
+        <span></span>
+        <p>Subiendo archivo</p>
+        <div className={style.loading__line} />
+      </div>
+    );
     return [url, Component];
   }
   if (status === "error") {
@@ -72,7 +82,7 @@ export default function UploadImage({ defaultValue }: Props): InputExport<Url> {
           case "string":
             return <WithUrl url={url as string} onChange={onChange} />;
           default:
-            return <EmptyUrl onChange={onChange}/>;
+            return <EmptyUrl onChange={onChange} />;
         }
       })()}
     </div>
