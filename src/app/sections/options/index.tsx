@@ -1,11 +1,12 @@
 import { useCanvasCtx, useShapeIdCtx } from "@/app/context";
 import TextOptions from "./TextOptions";
-import { Image, Name, Text } from "@/types/Canvas.types";
+import { Icon, Image, Name, Text } from "@/types/Canvas.types";
 import { HtmlHTMLAttributes, PropsWithChildren } from "react";
 import style from "./index.module.scss";
 import GeneralOptions from "./GeneralOptions";
 import ImageOptions from "./ImageOptions";
 import NameOptions from "./NameOptions";
+import IconOptions from "./IconOptions";
 
 export const LIMIT_CANVAS = 1024;
 export const WIDTH_LARGE = "20rem";
@@ -42,6 +43,12 @@ export default function Options() {
       return (
         <OptionsContent>
           <NameOptions shape={shape as Name} />
+        </OptionsContent>
+      );
+    case "icon":
+      return (
+        <OptionsContent>
+          <IconOptions shape={shape as Icon} />
         </OptionsContent>
       );
     default:
