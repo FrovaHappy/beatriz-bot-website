@@ -4,7 +4,8 @@
   flex-direction: column;
   flex-shrink: 0;
   height: -webkit-fill-available;
-  overflow: scroll;
+  overflow-x: unset;
+  overflow-y: scroll;
   box-sizing: border-box;
   gap: 0.625rem;
 }
