@@ -11,14 +11,16 @@ const TYPE_OF = "image/png, image/jpeg";
 type Url = string | undefined;
 interface Props {
   defaultValue: Url;
+  width?: `${number}px` | `${number}rem`;
 }
 interface WithUrlProps {
   url: string;
+  width?: `${number}px` | `${number}rem`;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
-function WithUrl({ url, onChange }: WithUrlProps) {
+function WithUrl({ url, onChange, width }: WithUrlProps) {
   return (
-    <div className={style.withUrl}>
+    <div className={style.withUrl} style={{ width }}>
       <img src={url} alt="image upload" className={style.withUrl__img} />
       <input id={style.file} type="file" maxLength={1} onChange={onChange} />
       <label
@@ -47,7 +49,10 @@ function EmptyUrl({ onChange }: Omit<WithUrlProps, "url">) {
   );
 }
 
-export default function UploadImage({ defaultValue }: Props): InputExport<Url> {
+export default function UploadImage({
+  defaultValue,
+  width,
+}: Props): InputExport<Url> {
   const [url, setUrl] = useState(defaultValue);
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useStatus(setUrl, file);
@@ -102,7 +107,9 @@ export default function UploadImage({ defaultValue }: Props): InputExport<Url> {
       {(() => {
         switch (typeof url) {
           case "string":
-            return <WithUrl url={url as string} onChange={onChange} />;
+            return (
+              <WithUrl url={url as string} onChange={onChange} width={width} />
+            );
           default:
             return <EmptyUrl onChange={onChange} />;
         }

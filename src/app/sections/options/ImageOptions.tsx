@@ -3,7 +3,7 @@ import { useCanvasCtx, useShapeModifyCtx } from "@/app/context";
 import style from "./index.module.scss";
 import { Image, Layer } from "@/types/Canvas.types";
 import { cloneElement, useEffect } from "react";
-import { HEIGHT, LIMIT_CANVAS, WIDTH_SHORT } from ".";
+import { HEIGHT, LIMIT_CANVAS, WIDTH_LARGE, WIDTH_SHORT } from ".";
 import useInputNumber from "@/components/useInputNumber";
 import UploadImage from "@/components/UploadImage";
 
@@ -12,7 +12,7 @@ export default function ImageOptions({ shape }: { shape: Image }) {
   const [, setShapeModify] = useShapeModifyCtx();
 
   const options = {
-    img: UploadImage({ defaultValue: shape.img }),
+    img: UploadImage({ defaultValue: shape.img, width: WIDTH_LARGE }),
     title_dimensions: [, <h3 className={style.title}> Dimensiones </h3>],
     x: useInputNumber({
       defaultValue: `${shape.x}`,
