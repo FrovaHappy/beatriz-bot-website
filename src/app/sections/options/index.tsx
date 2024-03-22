@@ -9,7 +9,7 @@ import NameOptions from "./NameOptions";
 import IconOptions from "./IconOptions";
 
 export const LIMIT_CANVAS = 1024;
-export const WIDTH_LARGE = "20rem";
+export const WIDTH_LARGE = "19.5rem";
 export const WIDTH_SHORT = "9.43rem";
 export const HEIGHT = `2.625rem`;
 function OptionsContent({
