@@ -17,8 +17,9 @@ interface WithUrlProps {
   url: string;
   width?: `${number}px` | `${number}rem`;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setUrl: (value: string | undefined) => void;
 }
-function WithUrl({ url, onChange, width }: WithUrlProps) {
+function WithUrl({ url, onChange, width, setUrl }: WithUrlProps) {
   return (
     <div className={style.withUrl} style={{ width }}>
       <img src={url} alt="image upload" className={style.withUrl__img} />
@@ -30,14 +31,17 @@ function WithUrl({ url, onChange, width }: WithUrlProps) {
       >
         <IconPencil />
       </label>
-      <button className={style.withUrl__delete}>
+      <button
+        className={style.withUrl__delete}
+        onClick={() => setUrl(undefined)}
+      >
         <IconTrash />
       </button>
     </div>
   );
 }
 
-function EmptyUrl({ onChange }: Omit<WithUrlProps, "url">) {
+function EmptyUrl({ onChange }: Omit<WithUrlProps, "url" | "setUrl">) {
   return (
     <>
       <input id={style.file} type="file" maxLength={1} onChange={onChange} />
@@ -108,7 +112,12 @@ export default function UploadImage({
         switch (typeof url) {
           case "string":
             return (
-              <WithUrl url={url as string} onChange={onChange} width={width} />
+              <WithUrl
+                url={url as string}
+                onChange={onChange}
+                width={width}
+                setUrl={setUrl}
+              />
             );
           default:
             return <EmptyUrl onChange={onChange} />;
