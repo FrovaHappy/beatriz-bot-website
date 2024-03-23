@@ -12,7 +12,7 @@ export interface Image {
   width: number;
   x: number;
   y: number;
-  img: string;
+  img: string | undefined;
 }
 export interface Icon {
   type: string;
