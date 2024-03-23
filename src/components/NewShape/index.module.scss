@@ -1,5 +1,22 @@
 .content {
   position: relative;
+  display: flex;
+  flex-direction: row;
+}
+.countStack{
+  padding: .625rem;
+  height: 2.5rem;
+  border: .0625rem solid var(--color-content-hover);
+  display: flex;
+  gap: .625rem;
+  border-radius: var(--border-2x);
+  text-wrap: nowrap;
+  align-items: center;
+  width: min-content;
+  color: var(--color-text-alt);
+  & svg {
+    height: 100%;
+  }
 }
 .newButton {
   padding: 0.625rem;
@@ -20,6 +37,8 @@
   display: none;
   &__show {
     position: absolute;
+    top: 3.5rem;
+    left: 0;
     width: -webkit-fill-available;
     display: flex;
     flex-direction: column;
