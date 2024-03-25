@@ -7,10 +7,9 @@ import { useEffect } from "react";
 import style from "./index.module.scss";
 import useColorsInput from "@/components/useColorsInput";
 import { HEIGHT, LIMIT_CANVAS, WIDTH_LARGE, WIDTH_SHORT } from ".";
-
 export default function TextOptions({ shape }: { shape: Text }) {
   const [canvas, setCanvas] = useCanvasCtx();
-  const [, setShapeModify] = useShapeModifyCtx();
+  const [layer, setShapeModify] = useShapeModifyCtx();
   const [x, xInput] = useInputNumber({
     defaultValue: `${shape.x}`,
     step: 1,
@@ -85,7 +84,7 @@ export default function TextOptions({ shape }: { shape: Text }) {
     title: "Limit",
     width: WIDTH_SHORT,
   });
-  const [align, alignSelector] = useSelections({
+  const [align, alignSelector] = useSelections<CanvasTextAlign>({
     idSelect: shape.align,
     height: HEIGHT,
     title: "Align",
@@ -96,7 +95,7 @@ export default function TextOptions({ shape }: { shape: Text }) {
     ],
     width: WIDTH_SHORT,
   });
-  const [baseline, baselineSelector] = useSelections({
+  const [baseline, baselineSelector] = useSelections<CanvasTextBaseline>({
     idSelect: shape.baseline,
     height: HEIGHT,
     title: "Baseline",
@@ -136,7 +135,7 @@ export default function TextOptions({ shape }: { shape: Text }) {
     color,
     limitLetters,
     baseline,
-    align
+    align,
   ]);
   return (
     <>
