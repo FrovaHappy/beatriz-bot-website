@@ -1,4 +1,4 @@
-import { useCanvasCtx, useShapeIdCtx } from "@/app/context";
+import { useShapeModifyCtx } from "@/app/context";
 import TextOptions from "./TextOptions";
 import { Icon, Image, Name, Text } from "@/types/Canvas.types";
 import { HtmlHTMLAttributes, PropsWithChildren } from "react";
@@ -23,9 +23,7 @@ function OptionsContent({
   );
 }
 export default function Options() {
-  const [canvas] = useCanvasCtx();
-  const [shapeId] = useShapeIdCtx();
-  const shape = canvas.layers.find((l) => l.id === shapeId);
+  const [shape] = useShapeModifyCtx();
   switch (shape?.type ?? "") {
     case "text":
       return (

@@ -15,8 +15,7 @@ type Shape = Partial<Image & Text & Name & Icon> & { id: number };
 
 export default function Shapes() {
   const [canvas, setCanvas] = useCanvasCtx();
-  const [shapeId, setShapeId] = useShapeIdCtx();
-  const [shapeModify, setShapeModify] = useShapeModifyCtx()
+  const [shapeModify] = useShapeModifyCtx();
   const [list, setList] = useState(addIdOfLayers(canvas).layers);
   useEffect(() => {
     setList(canvas.layers);
@@ -29,15 +28,11 @@ export default function Shapes() {
       setList((shape) => {
         const oldIndex = shape.findIndex((person) => person.id === active.id);
         const newIndex = shape.findIndex((person) => person.id === over?.id);
-        const listMoved = arrayMove(shape, oldIndex, newIndex)
+        const listMoved = arrayMove(shape, oldIndex, newIndex);
         console.log(listMoved);
-        setCanvas({ ...canvas, layers: listMoved })
-        setShapeModify(listMoved[newIndex])
+        setCanvas({ ...canvas, layers: listMoved });
         return arrayMove(shape, oldIndex, newIndex);
       });
-      ;
-    } else {
-      setShapeId(shapeId !== active.id ? (active.id as number) : null);
     }
   };
 

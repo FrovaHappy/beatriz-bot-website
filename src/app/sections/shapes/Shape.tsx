@@ -8,7 +8,7 @@ import IconPhoto from "@/app/icons/IconPhoto";
 import IconTextResize from "@/app/icons/IconTextResize";
 import IconUserSquare from "@/app/icons/IconUserSquare";
 import IconIconsOff from "@/app/icons/IconIconsOff";
-import { useShapeIdCtx } from "@/app/context";
+import { useCanvasCtx, useShapeModifyCtx } from "@/app/context";
 import IconTrash from "@/app/icons/IconTrash";
 import useDeleteShape from "./useDeleteShape";
 
@@ -28,7 +28,17 @@ const icons: Record<
   name: IconAt,
 };
 export default function Shape({ image, icon, title, id }: Props) {
-  const [shapeId] = useShapeIdCtx();
+  const [shape, setShape] = useShapeModifyCtx();
+  const [canvas] = useCanvasCtx();
+  const onClickSelect = () => {
+    const layer = canvas.layers.find((l) => l.id === id);
+    if (!layer) return;
+    if (shape?.id === layer.id) {
+      setShape(null);
+    } else {
+      setShape(JSON.parse(JSON.stringify(layer)));
+    }
+  };
   const onClick = useDeleteShape(id);
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
@@ -45,7 +55,10 @@ export default function Shape({ image, icon, title, id }: Props) {
       ref={setNodeRef}
       {...attributes}
       {...listeners}
-      className={`${style.shape} ${shapeId === id ? style.shape__select : ""}`}
+      onMouseUp={onClickSelect}
+      className={`${style.shape} ${
+        shape?.id === id ? style.shape__select : ""
+      }`}
     >
       <Icon className={style.shape__icon} />
       <h3 className={style.shape__title}>{title}</h3>
