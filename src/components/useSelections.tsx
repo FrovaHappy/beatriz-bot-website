@@ -7,19 +7,19 @@ import { calculatePercents } from "@/utils/getPadding";
 import MaskInput, { OptionsMaskInput } from "./MaskInput";
 import { InputExport } from "@/types/types";
 
-interface Options {
-  id: string;
+interface Options<T> {
+  id: T;
   icon?: (p: React.AllHTMLAttributes<any>) => React.ReactNode;
   title: string;
 }
-interface Props extends OptionsMaskInput {
-  idSelect: string;
-  values: Options[];
+interface Props<T> extends OptionsMaskInput {
+  idSelect: T;
+  values: Options<T>[];
 }
 
-export default function useSelections(
-  props: Props
-): InputExport<Options | undefined> {
+export default function useSelections<T = string>(
+  props: Props<T>
+): InputExport<Options<T> | undefined> {
   const { title, width, idSelect, values, height = "2rem" } = props;
   const [value, setValue] = useState(values.find((v) => v.id === idSelect));
   const [show, setShow] = useState(false);
@@ -45,7 +45,7 @@ export default function useSelections(
           const IconItem = v.icon;
           return (
             <div
-              key={v.id}
+              key={v.id as string}
               onClick={() => setValue(v)}
               className={`${inputStyle.props} ${style.value} ${
                 value?.id === v.id ? style["value--active"] : ""
