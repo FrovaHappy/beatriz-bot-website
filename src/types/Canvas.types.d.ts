@@ -1,11 +1,21 @@
-export interface Canvas {
+export interface TextBase {
+  fontSize: number;
+  fontFamily: string;
+  fontWeight: number;
+  textAlign: string;
+  textBaseline: string;
+}
+
+export interface Base {
   height: number;
   width: number;
-  layers: Layer[];
-  background?: string | null | undefined;
-  colorDominate?: string | null | undefined;
+  color: string;
 }
-export type Layer = Partial<Image & Text & Name & Icon> & {id: number};
+
+export interface Canvas extends Base, TextBase {
+  layers: Layer[];
+}
+export type Layer = Partial<Image & Text & Name & Icon> & { id: number };
 export interface Image {
   type: string;
   height: number;
@@ -45,7 +55,15 @@ export interface Text {
   weight: number;
   limitLetters: number;
   content: string;
-  align: string;
-  baseline: string;
+  align: CanvasTextAlign;
+  baseline: CanvasTextBaseline;
   color?: string | null | undefined;
+}
+
+export interface User {
+  id: string;
+  username: string;
+  globalName: string | null | undefined;
+  count: number | undefined;
+  avatar: string | null | undefined;
 }
