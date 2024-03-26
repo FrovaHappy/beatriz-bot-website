@@ -18,90 +18,90 @@ export default function NameOptions({ shape }: { shape: Name }) {
     x: useInputNumber({
       defaultValue: `${shape.x}`,
       height: HEIGHT,
-      title: "X",
+      title: 'X',
       placeholder: shape.x.toString(),
       width: WIDTH_SHORT,
       step: 1,
       min: 0,
-      max: LIMIT_CANVAS,
+      max: LIMIT_CANVAS
     }),
     y: useInputNumber({
       defaultValue: `${shape.y}`,
       height: HEIGHT,
-      title: "Y",
+      title: 'Y',
       placeholder: shape.y.toString(),
       width: WIDTH_SHORT,
       step: 1,
       min: 0,
-      max: LIMIT_CANVAS,
+      max: LIMIT_CANVAS
     }),
     title_text: [, <h3 className={style.title}> Texto </h3>],
     nameType: useSelections({
       idSelect: shape.nameType,
       height: HEIGHT,
-      title: "Type",
+      title: 'Type',
       width: WIDTH_LARGE,
       values: [
-        { id: "username", title: "User Name" },
-        { id: "id", title: "Id" },
-        { id: "globalName", title: "Global Name" },
-      ],
+        { id: 'username', title: 'User Name' },
+        { id: 'id', title: 'Id' },
+        { id: 'globalName', title: 'Global Name' }
+      ]
     }),
     family: useSelections({
-      idSelect: shape.family ?? "Roboto",
+      idSelect: shape.family ?? 'Roboto',
       height: HEIGHT,
-      title: "Family",
+      title: 'Family',
       width: WIDTH_LARGE,
       values: [
-        { id: "Roboto", title: "Roboto" },
-        { id: "DancingScript", title: "DancingScript" },
-        { id: "Inter", title: "Inter" },
-        { id: "Karla Italic", title: "Karla Italic" },
-        { id: "Karla", title: "Karla" },
-        { id: "Lato", title: "Lato" },
-        { id: "Nunito Italic", title: "Nunito Italic" },
-        { id: "Nunito", title: "Nunito" },
-      ],
+        { id: 'Roboto', title: 'Roboto' },
+        { id: 'DancingScript', title: 'DancingScript' },
+        { id: 'Inter', title: 'Inter' },
+        { id: 'Karla Italic', title: 'Karla Italic' },
+        { id: 'Karla', title: 'Karla' },
+        { id: 'Lato', title: 'Lato' },
+        { id: 'Nunito Italic', title: 'Nunito Italic' },
+        { id: 'Nunito', title: 'Nunito' }
+      ]
     }),
-    align: useSelections({
-      title: "Align",
-      idSelect: shape.align ?? "start",
+    align: useSelections<CanvasTextAlign>({
+      title: 'Align',
+      idSelect: shape.align ?? 'start',
       height: HEIGHT,
       width: WIDTH_LARGE,
       values: [
         {
-          id: "start",
-          title: "Start",
+          id: 'start',
+          title: 'Start'
         },
         {
-          id: "center",
-          title: "Center",
+          id: 'center',
+          title: 'Center'
         },
         {
-          id: "end",
-          title: "End",
-        },
-      ],
+          id: 'end',
+          title: 'End'
+        }
+      ]
     }),
-    baseline: useSelections({
+    baseline: useSelections<CanvasTextBaseline>({
       idSelect: shape.baseline,
       height: HEIGHT,
-      title: "Baseline",
+      title: 'Baseline',
       width: WIDTH_LARGE,
       values: [
-        { id: "top", title: "Top" },
-        { id: "hanging", title: "Hanging" },
-        { id: "middle", title: "Middle" },
-        { id: "alphabetic", title: "Alphabetic" },
-        { id: "ideographic", title: "Ideographic" },
-        { id: "bottom", title: "Bottom" },
-      ],
+        { id: 'top', title: 'Top' },
+        { id: 'hanging', title: 'Hanging' },
+        { id: 'middle', title: 'Middle' },
+        { id: 'alphabetic', title: 'Alphabetic' },
+        { id: 'ideographic', title: 'Ideographic' },
+        { id: 'bottom', title: 'Bottom' }
+      ]
     }),
     color: useColorsInput({
       defaultValue: shape.color,
       height: HEIGHT,
       width: WIDTH_SHORT,
-      title: "Color",
+      title: 'Color'
     }),
     limitLetters: useInputNumber({
       max: 250,
@@ -109,30 +109,30 @@ export default function NameOptions({ shape }: { shape: Name }) {
       step: 1,
       defaultValue: `${shape.limitLetters}`,
       height: HEIGHT,
-      title: "Limit",
-      width: WIDTH_SHORT,
+      title: 'Limit',
+      width: WIDTH_SHORT
     }),
     weight: useInputNumber({
       defaultValue: `${shape.weight}`,
       height: HEIGHT,
-      title: "Weight",
+      title: 'Weight',
       placeholder: shape.weight.toString(),
       width: WIDTH_SHORT,
       step: 50,
       min: 0,
-      max: 1000,
+      max: 1000
     }),
     size: useInputNumber({
       defaultValue: `${shape.size}`,
       height: HEIGHT,
-      title: "Size",
+      title: 'Size',
       placeholder: shape.size.toString(),
       width: WIDTH_SHORT,
       step: 1,
       min: 0,
-      max: LIMIT_CANVAS,
-    }),
-  };
+      max: LIMIT_CANVAS
+    })
+  }
   const values = Object.keys(options).map(
     (key) => options[key as keyof Omit<Name, "type">][0]
   );
