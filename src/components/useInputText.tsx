@@ -17,6 +17,7 @@ export default function useInputText(props: TextInputProps) {
   const { title, regexArray, defaultValue, placeholder, height, width } = props
 
   const [value, setValue] = useState<Value>(defaultValue || null)
+  const [valueError, setValueError] = useState<Value>(null)
   const [valueTimeout, setValueTimeout] = useSetterTimeOut<Value>({
     value,
     setValue,
@@ -27,14 +28,14 @@ export default function useInputText(props: TextInputProps) {
   const onChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault()
     const m = e.target.value || ''
-
+    setValueError(m)
     for (const r of regexArray) {
       const test = r.regex.test(m)
       if (test) continue
       setMsgError(r.msg)
       return
     }
-
+    setValueError(null)
     setMsgError(null)
     setValueTimeout(m)
   }
@@ -48,7 +49,7 @@ export default function useInputText(props: TextInputProps) {
       <input
         className={inputStyle.props}
         type='text'
-        value={valueTimeout ?? ''}
+        value={valueError ?? valueTimeout ?? ''}
         placeholder={placeholder}
         onChange={onChange}
         onBlur={onBlur}

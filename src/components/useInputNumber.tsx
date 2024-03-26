@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import inputStyle from './Input.module.scss'
 import { InputExport } from '@/types/types'
 import MaskInput, { OptionsMaskInput } from './MaskInput'
@@ -18,11 +18,12 @@ export default function useInputNumber(props: Props): InputExport<number> {
   const [value, setValue] = useState<Value>(defaultValue)
   const [valueTimeout, setValueTimeout] = useSetterTimeOut<Value>({ value, setValue, defaultValue })
   const [msgError, setMsgError] = useState<Value>(null)
-
+  const [valueError, setValueError] = useState<Value>(null)
   const onChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault()
     const m = e.target.value ?? ''
     const test = Number.parseInt(m) <= max && Number.parseInt(m) >= min
+    setValueError(m)
     if (!test) {
       setMsgError(`el numero debe ser mayor a ${min} o menor a ${max}.`)
       return
@@ -31,6 +32,7 @@ export default function useInputNumber(props: Props): InputExport<number> {
       setMsgError(`el numero debe ser divisible por ${step}.`)
       return
     }
+    setValueError(null)
     setMsgError(null)
     setValueTimeout(m)
   }
@@ -46,7 +48,7 @@ export default function useInputNumber(props: Props): InputExport<number> {
         step={step}
         min={min}
         max={max}
-        value={valueTimeout ?? ''}
+        value={valueError ?? valueTimeout ?? ''}
         placeholder={placeholder}
         onChange={onChange}
         onBlur={onBlur}
