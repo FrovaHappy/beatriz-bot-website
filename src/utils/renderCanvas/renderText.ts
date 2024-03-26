@@ -23,7 +23,7 @@ export function renderText(
   ctx.font = `${weight} ${size}px ${family}`;
   ctx.textAlign = align;
   ctx.textBaseline = baseline;
-  ctx.fillStyle = color ?? base.color;
+  ctx.fillStyle = color ?? base.color ?? 'transparent'
 
   let lengthLetters = ctx.measureText(textContent);
   while (limitLetters < lengthLetters.width && limitLetters !== 0) {
