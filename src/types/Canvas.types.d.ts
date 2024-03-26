@@ -5,56 +5,46 @@ export interface TextBase {
   textAlign: string;
   textBaseline: string;
 }
-
+export type TypeLayer = 'text' | 'image' | 'icon' | 'name'
 export interface Base {
-  height: number;
-  width: number;
-  color: string;
-}
-
-export interface Canvas extends Base, TextBase {
-  layers: Layer[];
-}
-export type Layer = Partial<Image & Text & Name & Icon> & { id: number };
-export interface Image {
-  type: string;
-  height: number;
-  width: number;
-  x: number;
-  y: number;
-  img: string | undefined;
-}
-export interface Icon {
-  type: string
   height: number
   width: number
-  x: number
-  y: number
-  shape: string
-  color?: string | undefined
+  color?: string
 }
-export interface Name {
-  type: string
+export interface Coordinate {
   x: number
   y: number
+}
+export interface Canvas extends Base, TextBase {
+  layers: Layer[]
+}
+export type Layer = Partial<Image & Text & Name & Icon> & { id: number }
+export interface Image extends Coordinate, Base {
+  type: TypeLayer
+  img: string | undefined
+}
+export interface Icon extends Coordinate, Base {
+  type: string
+  shape: string
+}
+export interface Name extends Coordinate {
+  type: TypeLayer
+  nameType: string
   size: number
   family: string
   weight: number
   limitLetters: number
   align: CanvasTextAlign
   baseline: CanvasTextBaseline
-  nameType: string
   color?: string | undefined
 }
-export interface Text {
-  type: string
-  x: number
-  y: number
+export interface Text extends Coordinate {
+  type: TypeLayer
+  content: string
   size: number
   family: string
   weight: number
   limitLetters: number
-  content: string
   align: CanvasTextAlign
   baseline: CanvasTextBaseline
   color?: string | undefined
