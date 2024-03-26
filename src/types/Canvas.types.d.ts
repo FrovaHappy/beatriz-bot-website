@@ -47,17 +47,17 @@ export interface Name {
   color?: string | null | undefined;
 }
 export interface Text {
-  type: string;
-  x: number;
-  y: number;
-  size: number;
-  family: string;
-  weight: number;
-  limitLetters: number;
-  content: string;
-  align: CanvasTextAlign;
-  baseline: CanvasTextBaseline;
-  color?: string | null | undefined;
+  type: string
+  x: number
+  y: number
+  size: number
+  family: string
+  weight: number
+  limitLetters: number
+  content: string
+  align: CanvasTextAlign
+  baseline: CanvasTextBaseline
+  color?: string | undefined
 }
 
 export interface User {
