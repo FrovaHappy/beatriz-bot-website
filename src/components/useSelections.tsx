@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react'
 import style from "./Selections.module.scss";
 import inputStyle from "./Input.module.scss";
 import IconChevronDown from "@/app/icons/IconChevronDown";
@@ -24,6 +24,9 @@ export default function useSelections<T = string>(
   const [value, setValue] = useState(values.find((v) => v.id === idSelect));
   const [show, setShow] = useState(false);
   const Icon = value?.icon;
+  useEffect(() => {
+    setValue(values.find(v => v.id === idSelect))
+  }, [idSelect])
   const ICONS_STYLE: React.CSSProperties = {
     height: calculatePercents(height, 0.7),
     aspectRatio: "1/1",
