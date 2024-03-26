@@ -25,26 +25,26 @@ export interface Image {
   img: string | undefined;
 }
 export interface Icon {
-  type: string;
-  height: number;
-  width: number;
-  x: number;
-  y: number;
-  shape: string;
-  color?: string | null | undefined;
+  type: string
+  height: number
+  width: number
+  x: number
+  y: number
+  shape: string
+  color?: string | undefined
 }
 export interface Name {
-  type: string;
-  x: number;
-  y: number;
-  size: number;
-  family: string;
-  weight: number;
-  limitLetters: number;
-  align: string;
-  baseline: string;
-  nameType: string;
-  color?: string | null | undefined;
+  type: string
+  x: number
+  y: number
+  size: number
+  family: string
+  weight: number
+  limitLetters: number
+  align: CanvasTextAlign
+  baseline: CanvasTextBaseline
+  nameType: string
+  color?: string | undefined
 }
 export interface Text {
   type: string
