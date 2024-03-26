@@ -152,5 +152,5 @@ export default function TextOptions({ shape }: { shape: Text }) {
       {alignSelector}
       {baselineSelector}
     </>
-  );
+  )
 }
