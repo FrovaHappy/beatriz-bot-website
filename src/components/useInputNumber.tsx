@@ -21,7 +21,7 @@ export default function useInputNumber(props: Props): InputExport<number> {
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault()
-    const m = e.target.value || defaultValue || ''
+    const m = e.target.value ?? ''
     const test = Number.parseInt(m) <= max && Number.parseInt(m) >= min
     if (!test) {
       setMsgError(`el numero debe ser mayor a ${min} o menor a ${max}.`)
@@ -36,7 +36,7 @@ export default function useInputNumber(props: Props): InputExport<number> {
   }
   const onBlur: React.FocusEventHandler<HTMLInputElement> = e => {
     e.preventDefault()
-    if (e.target.value === '') e.target.value = defaultValue || ''
+    if (e.target.value === '') e.target.value = defaultValue ?? ''
   }
   const Component = (
     <MaskInput options={{ height, title, width }} className={msgError ? inputStyle.error : ''}>
