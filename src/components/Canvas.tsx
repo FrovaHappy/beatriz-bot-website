@@ -9,6 +9,14 @@ const USER: User = {
   count: 13,
   avatar: "https://imgur.com/GCcsX8J.png",
 };
+function loadImage(path: string) {
+  return new Promise<HTMLImageElement>((resolve, reject) => {
+    const img = new Image()
+    img.onload = () => resolve(img)
+    img.onerror = () => reject(img)
+    img.src = path
+  })
+}
 export default function Canvas() {
   const [canvas] = useCanvasCtx();
   const ref = useRef<HTMLCanvasElement>(null);
@@ -16,7 +24,7 @@ export default function Canvas() {
     const ctx = ref.current?.getContext("2d");
     if (!ctx) return;
     const { layers, ...base } = canvas;
-    renderCanvas(layers, base, USER, ctx, Path2D);
+    renderCanvas(layers, base, USER, ctx, Path2D, loadImage)
   }, [canvas]);
 
   return (
