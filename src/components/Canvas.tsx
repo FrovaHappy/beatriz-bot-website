@@ -22,7 +22,8 @@ const BackgroundTransparent =
 
 const style: CSSProperties = {
   backgroundImage: `url(${BackgroundTransparent}`,
-  backgroundRepeat: 'repeat'
+  backgroundRepeat: 'repeat',
+  gridRow: '1/3'
 }
 export default function Canvas() {
   const [canvas] = useCanvasCtx()

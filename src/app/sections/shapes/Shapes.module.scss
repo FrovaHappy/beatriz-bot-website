@@ -1,6 +1,7 @@
 .content {
   width: 20rem;
   display: flex;
+  grid-row: 2/3;
   flex-direction: column;
   flex-shrink: 0;
   height: -webkit-fill-available;
