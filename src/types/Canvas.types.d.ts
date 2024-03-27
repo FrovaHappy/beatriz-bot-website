@@ -1,11 +1,12 @@
 export interface TextBase {
-  fontSize: number;
-  fontFamily: string;
-  fontWeight: number;
-  textAlign: string;
-  textBaseline: string;
+  fontSize: number
+  fontFamily: string
+  fontWeight: number
+  textAlign: string
+  textBaseline: string
 }
 export type TypeLayer = 'text' | 'image' | 'icon' | 'name'
+export type Shapes = 'square' | 'square5' | 'square10' | 'square15' | 'square20' | 'circle'
 export interface Base {
   height: number
   width: number
@@ -24,8 +25,8 @@ export interface Image extends Coordinate, Base {
   img: string | undefined
 }
 export interface Icon extends Coordinate, Base {
-  type: string
-  shape: string
+  type: TypeLayer
+  shape: Shapes
 }
 export interface Name extends Coordinate {
   type: TypeLayer
@@ -51,9 +52,9 @@ export interface Text extends Coordinate {
 }
 
 export interface User {
-  id: string;
-  username: string;
-  globalName: string | null | undefined;
-  count: number | undefined;
-  avatar: string | null | undefined;
+  id: string
+  username: string
+  globalName: string | null | undefined
+  count: number | undefined
+  avatar: string | null | undefined
 }
