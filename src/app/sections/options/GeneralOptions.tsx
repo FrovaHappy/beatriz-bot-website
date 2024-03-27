@@ -27,19 +27,19 @@ export default function GeneralOptions() {
     width: WIDTH_SHORT,
   });
   const [background, backgroundInput] = useColorsInput({
-    title: "background",
-    defaultValue: canvas.background,
+    title: 'background',
+    defaultValue: canvas.color,
     height: HEIGHT,
-    width: WIDTH_SHORT,
-  });
+    width: WIDTH_SHORT
+  })
 
   useEffect(() => {
-    canvas.height = height;
-    canvas.width = width;
-    canvas.background = background;
-    setCanvas(JSON.parse(JSON.stringify(canvas)));
+    canvas.height = height
+    canvas.width = width
+    canvas.color = background !== '#000000' ? background : undefined
+    setCanvas(JSON.parse(JSON.stringify(canvas)))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [background, height, width]);
+  }, [background, height, width])
 
   return (
     <>
