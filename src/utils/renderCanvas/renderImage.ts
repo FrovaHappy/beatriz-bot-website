@@ -1,5 +1,4 @@
-import { Base, Image, TextBase, User } from '@/types/Canvas.types'
-import { userFormatting } from '../formattingText'
+import { Base, Image, TextBase } from '@/types/Canvas.types'
 
 export async function renderImage(
   image: Image,
@@ -7,8 +6,10 @@ export async function renderImage(
   base: Base & TextBase,
   loadImage: (k: string) => Promise<HTMLImageElement>
 ) {
-  const { x, y, height, width, type, img, color } = image
+  const { x, y, height, width, img, color } = image
+  ctx.save()
   ctx.fillStyle = color ?? base.color ?? 'transparent'
   ctx.fillRect(x, y, width, height)
-  if (img) ctx.drawImage(await loadImage(img), x, y, height, width)
+  if (img) ctx.drawImage(await loadImage(img), x, y, width, height)
+  ctx.restore()
 }
