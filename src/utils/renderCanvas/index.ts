@@ -1,19 +1,16 @@
-import { Base, Layer, Text, TextBase, User, Image } from '@/types/Canvas.types'
+import { Base, Layer, Text, TextBase, User, Image, Icon } from '@/types/Canvas.types'
 import { renderText } from './renderText'
 
 import { promises } from 'dns'
 import { renderImage } from './renderImage'
+import { renderIcon } from './renderIcon'
 
-interface Path {
-  new (path?: string | Path2D | undefined): Path2D
-  prototype: Path2D
-}
 export default async function renderCanvas(
   layers: Layer[],
   base: Base & TextBase,
   user: User,
   ctx: CanvasRenderingContext2D,
-  Patch2DInstance: Path,
+  Path2DInstance: typeof Path2D,
   loadImage: (path: string) => Promise<HTMLImageElement>
 ) {
   ctx.reset()
@@ -29,6 +26,10 @@ export default async function renderCanvas(
       case 'image':
         await renderImage(layer as Image, ctx, base, loadImage)
         break
+      case 'icon':
+        await renderIcon(layer as Icon, ctx, base, Path2DInstance, loadImage)
+        break
+      case 'name':
     }
   }
 }
