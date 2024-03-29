@@ -6,6 +6,7 @@ import { cloneElement, useEffect } from 'react'
 import { HEIGHT, LIMIT_CANVAS, WIDTH_LARGE, WIDTH_SHORT } from '.'
 import useInputNumber from '@/components/useInputNumber'
 import UploadImage from '@/components/UploadImage'
+import useColorsInput from '@/components/useColorsInput'
 
 export default function ImageOptions({ shape }: { shape: Image }) {
   const [canvas, setCanvas] = useCanvasCtx()
@@ -53,6 +54,12 @@ export default function ImageOptions({ shape }: { shape: Image }) {
       step: 1,
       min: 0,
       max: LIMIT_CANVAS
+    }),
+    color: useColorsInput({
+      title: 'color',
+      defaultValue: shape.color,
+      width: WIDTH_SHORT,
+      height: HEIGHT
     })
   }
   const values = Object.keys(options).map(key => options[key as keyof Omit<Image, 'type' | 'color'>][0])
@@ -65,6 +72,7 @@ export default function ImageOptions({ shape }: { shape: Image }) {
       width: options.width[0],
       x: options.x[0],
       y: options.y[0],
+      color: options.color[0] !== '#000000' ? options.color[0] : undefined,
       type: s.type,
       id: s.id
     }
