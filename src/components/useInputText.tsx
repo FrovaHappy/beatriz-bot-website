@@ -3,7 +3,7 @@ import { useState } from 'react'
 import inputStyle from './Input.module.scss'
 import MaskInput, { OptionsMaskInput } from './MaskInput'
 import useSetterTimeOut from './useSetterTimeOut'
-type Value = string | null
+type Value = string | undefined
 type Reg = {
   regex: RegExp
   msg: string
@@ -16,14 +16,14 @@ export interface TextInputProps extends OptionsMaskInput {
 export default function useInputText(props: TextInputProps) {
   const { title, regexArray, defaultValue, placeholder, height, width } = props
 
-  const [value, setValue] = useState<Value>(defaultValue || null)
-  const [valueError, setValueError] = useState<Value>(null)
+  const [value, setValue] = useState<Value>(defaultValue)
+  const [valueError, setValueError] = useState<Value>(undefined)
   const [valueTimeout, setValueTimeout] = useSetterTimeOut<Value>({
     value,
     setValue,
-    defaultValue: defaultValue || null
+    defaultValue: defaultValue
   })
-  const [msgError, setMsgError] = useState<Value>(null)
+  const [msgError, setMsgError] = useState<Value>(undefined)
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault()
@@ -35,8 +35,8 @@ export default function useInputText(props: TextInputProps) {
       setMsgError(r.msg)
       return
     }
-    setValueError(null)
-    setMsgError(null)
+    setValueError(undefined)
+    setMsgError(undefined)
     setValueTimeout(m)
   }
   const onBlur: React.FocusEventHandler<HTMLInputElement> = e => {
