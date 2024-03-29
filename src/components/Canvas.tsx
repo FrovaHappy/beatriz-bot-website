@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useCanvasCtx } from '@/app/context'
 import { User } from '@/types/Canvas.types'
 import renderCanvas from '@/utils/renderCanvas'
