@@ -1,156 +1,158 @@
-import { useCanvasCtx, useShapeModifyCtx } from "@/app/context";
-import useInputNumber from "@/components/useInputNumber";
-import useInputText from "@/components/useInputText";
-import useSelections from "@/components/useSelections";
-import { Layer, Text } from "@/types/Canvas.types";
-import { useEffect } from "react";
-import style from "./index.module.scss";
-import useColorsInput from "@/components/useColorsInput";
-import { HEIGHT, LIMIT_CANVAS, WIDTH_LARGE, WIDTH_SHORT } from ".";
+/* eslint-disable react/jsx-key */
+import { useCanvasCtx, useShapeModifyCtx } from '@/app/context'
+import useInputNumber from '@/components/useInputNumber'
+import useInputText from '@/components/useInputText'
+import useSelections from '@/components/useSelections'
+import { Layer, Text } from '@/types/Canvas.types'
+import { cloneElement, useEffect } from 'react'
+import style from './index.module.scss'
+import useColorsInput from '@/components/useColorsInput'
+import { HEIGHT, LIMIT_CANVAS, WIDTH_LARGE, WIDTH_SHORT } from '.'
 export default function TextOptions({ shape }: { shape: Text }) {
-  const [canvas, setCanvas] = useCanvasCtx();
-  const [layer, setShapeModify] = useShapeModifyCtx();
-  const [x, xInput] = useInputNumber({
-    defaultValue: `${shape.x}`,
-    step: 1,
-    min: 0,
-    max: LIMIT_CANVAS,
-    height: HEIGHT,
-    title: "X",
-    width: WIDTH_SHORT,
-  });
-  const [y, yInput] = useInputNumber({
-    defaultValue: `${shape.y}`,
-    step: 1,
-    min: 0,
-    max: LIMIT_CANVAS,
-    height: HEIGHT,
-    title: "y",
-    width: WIDTH_SHORT,
-  });
-  const [family, familySelector] = useSelections({
-    idSelect: shape.family,
-    height: HEIGHT,
-    title: "y",
-    values: [
-      { id: "Roboto", title: "Roboto" },
-      { id: "Inter", title: "Inter" },
-      { id: "Laton", title: "Laton" },
-    ],
-    width: WIDTH_LARGE,
-  });
-  const [content, contentInput] = useInputText({
-    defaultValue: shape.content,
-    regexArray: [
-      {
-        regex: /^[\w\W]{0,100}$/,
-        msg: "El largo del texto supera los 100 caracteres ",
-      },
-    ],
-    height: HEIGHT,
-    title: "Content",
-    width: WIDTH_LARGE,
-  });
-  const [size, sizeInput] = useInputNumber({
-    max: LIMIT_CANVAS,
-    min: 8,
-    step: 1,
-    defaultValue: `${shape.size}`,
-    height: HEIGHT,
-    title: "Size",
-    width: WIDTH_SHORT,
-  });
-  const [color, colorInput] = useColorsInput({
-    height: HEIGHT,
-    title: "Color",
-    width: WIDTH_SHORT,
-    defaultValue: shape.color,
-  });
-  const [weight, weightInput] = useInputNumber({
-    max: 1000,
-    min: 1,
-    step: 1,
-    defaultValue: `${shape.weight}`,
-    height: HEIGHT,
-    title: "Weight",
-    width: WIDTH_SHORT,
-  });
-  const [limitLetters, limitLettersInput] = useInputNumber({
-    max: 250,
-    min: 1,
-    step: 1,
-    defaultValue: `${shape.limitLetters}`,
-    height: HEIGHT,
-    title: "Limit",
-    width: WIDTH_SHORT,
-  });
-  const [align, alignSelector] = useSelections<CanvasTextAlign>({
-    idSelect: shape.align,
-    height: HEIGHT,
-    title: "Align",
-    values: [
-      { id: "left", title: "left" },
-      { id: "center", title: "center" },
-      { id: "right", title: "right" },
-    ],
-    width: WIDTH_SHORT,
-  });
-  const [baseline, baselineSelector] = useSelections<CanvasTextBaseline>({
-    idSelect: shape.baseline,
-    height: HEIGHT,
-    title: "Baseline",
-    values: [
-      { id: "top", title: "top" },
-      { id: "middle", title: "middle" },
-      { id: "bottom", title: "bottom" },
-    ],
-    width: WIDTH_SHORT,
-  });
+  const [canvas, setCanvas] = useCanvasCtx()
+  const [, setShapeModify] = useShapeModifyCtx()
+
+  const options = {
+    title_dimensions: [, <h3 className={style.title}> Dimensiones </h3>],
+    x: useInputNumber({
+      defaultValue: `${shape.x}`,
+      height: HEIGHT,
+      title: 'X',
+      placeholder: shape.x.toString(),
+      width: WIDTH_SHORT,
+      step: 1,
+      min: 0,
+      max: LIMIT_CANVAS
+    }),
+    y: useInputNumber({
+      defaultValue: `${shape.y}`,
+      height: HEIGHT,
+      title: 'Y',
+      placeholder: shape.y.toString(),
+      width: WIDTH_SHORT,
+      step: 1,
+      min: 0,
+      max: LIMIT_CANVAS
+    }),
+    title_text: [, <h3 className={style.title}> Texto </h3>],
+    content: useInputText({
+      defaultValue: shape.content,
+      height: HEIGHT,
+      title: 'Content',
+      width: WIDTH_LARGE,
+      placeholder: shape.content,
+      regexArray: []
+    }),
+    family: useSelections({
+      idSelect: shape.family ?? 'Roboto',
+      height: HEIGHT,
+      title: 'Family',
+      width: WIDTH_LARGE,
+      values: [
+        { id: 'Roboto', title: 'Roboto' },
+        { id: 'DancingScript', title: 'DancingScript' },
+        { id: 'Inter', title: 'Inter' },
+        { id: 'Karla Italic', title: 'Karla Italic' },
+        { id: 'Karla', title: 'Karla' },
+        { id: 'Lato', title: 'Lato' },
+        { id: 'Nunito Italic', title: 'Nunito Italic' },
+        { id: 'Nunito', title: 'Nunito' }
+      ]
+    }),
+    align: useSelections<CanvasTextAlign>({
+      title: 'Align',
+      idSelect: shape.align ?? 'start',
+      height: HEIGHT,
+      width: WIDTH_LARGE,
+      values: [
+        {
+          id: 'start',
+          title: 'Start'
+        },
+        {
+          id: 'center',
+          title: 'Center'
+        },
+        {
+          id: 'end',
+          title: 'End'
+        }
+      ]
+    }),
+    baseline: useSelections<CanvasTextBaseline>({
+      idSelect: shape.baseline,
+      height: HEIGHT,
+      title: 'Baseline',
+      width: WIDTH_LARGE,
+      values: [
+        { id: 'top', title: 'Top' },
+        { id: 'hanging', title: 'Hanging' },
+        { id: 'middle', title: 'Middle' },
+        { id: 'alphabetic', title: 'Alphabetic' },
+        { id: 'ideographic', title: 'Ideographic' },
+        { id: 'bottom', title: 'Bottom' }
+      ]
+    }),
+    color: useColorsInput({
+      defaultValue: shape.color,
+      height: HEIGHT,
+      width: WIDTH_SHORT,
+      title: 'Color'
+    }),
+    limitLetters: useInputNumber({
+      max: 250,
+      min: 1,
+      step: 1,
+      defaultValue: `${shape.limitLetters}`,
+      height: HEIGHT,
+      title: 'Limit',
+      width: WIDTH_SHORT
+    }),
+    weight: useInputNumber({
+      defaultValue: `${shape.weight}`,
+      height: HEIGHT,
+      title: 'Weight',
+      placeholder: shape.weight.toString(),
+      width: WIDTH_SHORT,
+      step: 50,
+      min: 0,
+      max: 1000
+    }),
+    size: useInputNumber({
+      defaultValue: `${shape.size}`,
+      height: HEIGHT,
+      title: 'Size',
+      placeholder: shape.size.toString(),
+      width: WIDTH_SHORT,
+      step: 1,
+      min: 0,
+      max: LIMIT_CANVAS
+    })
+  }
+  const values = Object.keys(options).map(key => options[key as keyof Omit<Text, 'type'>][0])
+  const components = Object.keys(options).map(key => options[key as keyof Omit<Text, 'type'>][1])
   useEffect(() => {
-    // Dimensions
-    shape.x = x ?? shape.x;
-    shape.y = y ?? shape.y;
-    // Text
-    shape.family = family?.id ?? shape.family;
-    shape.content = content ?? shape.content;
-    shape.size = size ?? shape.size;
-    shape.weight = weight ?? shape.weight;
-    shape.color = color ?? shape.color;
-    shape.limitLetters = limitLetters ?? shape.limitLetters;
-    shape.baseline = baseline?.id ?? shape.baseline;
-    shape.align = align?.id ?? shape.align;
-    const s = shape as Layer;
-    const layers = canvas.layers;
-    canvas.layers = layers.map((l) => (l.id === s.id ? s : l));
-    setCanvas(JSON.parse(JSON.stringify(canvas)));
-    setShapeModify(s);
+    let s = shape as Layer
+    s = {
+      x: options.x[0],
+      y: options.y[0],
+      type: s.type,
+      id: s.id,
+      align: options.align[0]?.id,
+      baseline: options.baseline[0]?.id,
+      color: options.color[0],
+      family: options.family[0]?.id,
+      limitLetters: options.limitLetters[0],
+      content: options.content[0],
+      weight: options.weight[0],
+      size: options.size[0]
+    }
+    const layers = canvas.layers
+    canvas.layers = layers.map(l => (l.id === s.id ? s : l))
+    setCanvas(JSON.parse(JSON.stringify(canvas)))
+    setShapeModify(s)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    x,
-    y,
-    family,
-    content,
-    size,
-    weight,
-    color,
-    limitLetters,
-    baseline,
-    align,
-  ]);
-  return (
-    <>
-      <h3 className={style.title}>Dimensiones</h3>
-      {xInput}
-      {yInput}
-      <h3 className={style.title}>Texto</h3>
-      {contentInput}
-      {familySelector}
-      {sizeInput}
-      {colorInput}
-      {weightInput}
-      {limitLettersInput}
-      {alignSelector}
-      {baselineSelector}
-    </>
-  )
+  }, values)
+
+  return <>{components.map((c, i) => cloneElement(c, { key: i }))}</>
 }
