@@ -8,7 +8,7 @@ export async function renderImage(
 ) {
   const { x, y, height, width, img, color } = image
   ctx.save()
-  ctx.fillStyle = color ?? base.color ?? 'transparent'
+  ctx.fillStyle = color ?? 'transparent'
   ctx.fillRect(x, y, width, height)
   if (img) ctx.drawImage(await loadImage(img), x, y, width, height)
   ctx.restore()
