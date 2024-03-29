@@ -29,7 +29,7 @@ export async function renderIcon(
   ctx.translate(x, y)
   ctx.scale(scale(width), scale(height))
   ctx.clip(path)
-  ctx.fillStyle = color ?? base.color ?? 'transparent'
+  ctx.fillStyle = color ?? 'transparent'
   ctx.fillRect(0, 0, 1000, 1000)
   ctx.drawImage(await loadImage(iconsImgs[index]), 0, 0, 1000, 1000)
 
