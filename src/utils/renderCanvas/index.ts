@@ -16,7 +16,6 @@ export default async function renderCanvas(
   ctx.reset()
   ctx.clearRect(0, 0, base.width, base.height)
   ctx.save()
-  ctx.fillRect(0, 0, base.width, base.height)
   if (base.color) {
     ctx.fillStyle = base.color
     ctx.fillRect(0, 0, base.width, base.height)
