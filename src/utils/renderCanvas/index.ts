@@ -14,10 +14,14 @@ export default async function renderCanvas(
   loadImage: (path: string) => Promise<HTMLImageElement>
 ) {
   ctx.reset()
+  ctx.clearRect(0, 0, base.width, base.height)
+  ctx.save()
+  ctx.fillRect(0, 0, base.width, base.height)
   if (base.color) {
     ctx.fillStyle = base.color
     ctx.fillRect(0, 0, base.width, base.height)
   }
+  ctx.restore()
   for (const layer of layers) {
     switch (layer.type) {
       case 'text':
@@ -29,7 +33,6 @@ export default async function renderCanvas(
       case 'icon':
         await renderIcon(layer as Icon, ctx, base, Path2DInstance, loadImage)
         break
-      case 'name':
     }
   }
 }
