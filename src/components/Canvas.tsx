@@ -12,9 +12,9 @@ const USER: User = {
 function loadImage(path: string) {
   return new Promise<HTMLImageElement>((resolve, reject) => {
     const img = new Image()
+    img.src = path
     img.onload = () => resolve(img)
     img.onerror = () => reject(img)
-    img.src = path
   })
 }
 const BackgroundTransparent =
@@ -35,5 +35,5 @@ export default function Canvas() {
     renderCanvas(layers, base, USER, ctx, Path2D, loadImage)
   }, [canvas])
 
-  return useMemo(() => <canvas ref={ref} height={canvas.height} style={style} width={canvas.width}></canvas>, [canvas])
+  return useMemo(() => <canvas ref={ref} height={canvas.height} style={style} width={canvas.width}></canvas>, [])
 }
