@@ -1,5 +1,5 @@
 import { useCanvasCtx } from '@/app/context'
-import IconAt from '@/app/icons/IconAt'
+import IconCode from '@/app/icons/IconCode'
 import Buttons from '@/components/Buttons'
 import React, { useEffect } from 'react'
 
@@ -14,7 +14,7 @@ function GenerateJson() {
   const [, Button] = Buttons({
     text: 'Copiar código',
     callback,
-    Icon: IconAt
+    Icon: IconCode
   })
 
   return (
