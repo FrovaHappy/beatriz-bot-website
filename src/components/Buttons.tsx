@@ -1,10 +1,25 @@
-"use client";
+'use client'
+import { useState } from 'react'
+import style from './Buttons.module.scss'
+interface Props {
+  value?: boolean
+  text: string
+  callback: () => void
+  Icon?: (p: React.AllHTMLAttributes<any>) => React.ReactNode
+}
+export default function Buttons(props: Props) {
+  const { value = false, text, callback, Icon } = props
+  const [v, setValue] = useState(value)
+  const onClick = () => {
+    setValue(!v)
+    callback()
+  }
+  const Button = (
+    <button onClick={onClick} className={style.main}>
+      {Icon ? <Icon /> : undefined}
+      {text}
+    </button>
+  )
 
-import {  useState } from "react";
-export default function Buttons( state = false, text = "button") {
-  const [value, setValue] = useState(state);
-
-  const Button = <button onClick={() => setValue(!value)}>{text}</button>;
-
-  return [value, Button];
+  return [v, Button]
 }

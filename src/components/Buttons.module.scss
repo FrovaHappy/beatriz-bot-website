@@ -1,0 +1,8 @@
+.main{
+  display: flex;
+  height: 32px;
+  background-color: var(--color-primary);
+  & svg {
+    height: 100%;
+  }
+}
