@@ -1,32 +1,33 @@
-import { useCanvasCtx, useShapeModifyCtx } from "@/app/context";
-import { Name, Text, Image, Icon } from "@/types/Canvas.types";
-import defaultValue from "./defaultsValues";
-import style from "./index.module.scss";
-import { useState } from "react";
-import IconPlaylistAdd from "@/app/icons/IconPlaylistAdd";
-import IconTextResize from "@/app/icons/IconTextResize";
-import IconAt from "@/app/icons/IconAt";
-import IconPhoto from "@/app/icons/IconPhoto";
-import IconUserSquare from "@/app/icons/IconUserSquare";
-import IconStack from "@/app/icons/IconStack";
+import { useCanvasCtx, useShapeModifyCtx } from '@/app/context'
+import { Name, Text, Image, Icon } from '@/types/Canvas.types'
+import defaultValue from './defaultsValues'
+import style from './index.module.scss'
+import { useState } from 'react'
+import IconPlaylistAdd from '@/app/icons/IconPlaylistAdd'
+import IconTextResize from '@/app/icons/IconTextResize'
+import IconAt from '@/app/icons/IconAt'
+import IconPhoto from '@/app/icons/IconPhoto'
+import IconUserSquare from '@/app/icons/IconUserSquare'
+import IconStack from '@/app/icons/IconStack'
 
 export default function NewShape() {
-  const [show, setShow] = useState(false);
-  const [canvas, setCanvas] = useCanvasCtx();
-  const [, setShapeModify] = useShapeModifyCtx();
+  const [show, setShow] = useState(false)
+  const [canvas, setCanvas] = useCanvasCtx()
+  const [, setShapeModify] = useShapeModifyCtx()
 
   function onClick(defaultValue: Text | Name | Image | Icon) {
     return () => {
-      const layer = { ...defaultValue, id: Date.now() };
-      canvas.layers.push(layer);
-      setShapeModify(layer);
-      setCanvas({ ...canvas });
-      setShow(false);
-    };
+      const layer = { ...defaultValue, id: Date.now() }
+      canvas.layers.push(layer)
+      setShapeModify(layer)
+      setCanvas({ ...canvas })
+      setShow(false)
+    }
   }
-  const showOptions = show ? style.options__show : style.options;
+  const showOptions = show ? style.options__show : style.options
   return (
     <div className={style.content}>
+      <p>Canvas</p>
       <span className={style.countStack}>
         {canvas.layers.length} / 10 <IconStack />
       </span>
@@ -52,5 +53,5 @@ export default function NewShape() {
         </button>
       </div>
     </div>
-  );
+  )
 }
