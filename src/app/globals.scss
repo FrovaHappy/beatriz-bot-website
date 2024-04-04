@@ -9,7 +9,6 @@
   --color-text: #f1f1f3;
   --color-text-alt: #dbdce1;
   /* UI Directives*/
-  /* --shadow: #ffffff26 0px 3px 12px; */
   --shadow: #ffffff26 0px 2px 8px;
   --border-1x: 0.25rem;
   --border-2x: 0.5rem;
@@ -22,6 +21,12 @@
   --z-6: 60;
   --z-7: 70;
   --z-8: 80;
+  --full: -webkit-fill-available;
+}
+@supports not ((width: -webkit-fill-available) or (height: -webkit-fill-available)){
+  :root{
+    --full: -moz-available;
+  }
 }
 
 /* @media (prefers-color-scheme: dark) {
