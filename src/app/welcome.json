@@ -54,15 +54,15 @@
       "id": 5,
       "x": 350,
       "y": 80,
-      "type": "name",
+      "type": "text",
       "color": "#E54554",
       "size": 36,
       "family": "Inter",
       "weight": 900,
-      "align": "right",
+      "align": "end",
       "limitLetters": 300,
       "baseline": "top",
-      "nameType": "username"
+      "content": "<user_name>"
     },
     {
       "id": 7,
