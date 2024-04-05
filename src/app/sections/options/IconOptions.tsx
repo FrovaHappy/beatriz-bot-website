@@ -1,16 +1,17 @@
 /* eslint-disable react/jsx-key */
-import { useCanvasCtx, useShapeModifyCtx } from "@/app/context";
-import style from "./index.module.scss";
+import { useCanvasCtx, useShapeModifyCtx } from '@/app/context'
+import style from './index.module.scss'
 import { Icon, Layer, Shapes } from '@/types/Canvas.types'
-import { cloneElement, useEffect } from "react";
-import { HEIGHT, LIMIT_CANVAS, WIDTH_LARGE, WIDTH_SHORT } from ".";
-import useInputNumber from "@/components/useInputNumber";
-import useSelections from "@/components/useSelections";
-import useColorsInput from "@/components/useColorsInput";
+import { cloneElement, useEffect } from 'react'
+import { HEIGHT, LIMIT_CANVAS, WIDTH_LARGE, WIDTH_SHORT } from '.'
+import useInputNumber from '@/components/useInputNumber'
+import useSelections from '@/components/useSelections'
+import useColorsInput from '@/components/useColorsInput'
+import changedLayers from './changedLayers'
 
 export default function IconOptions({ shape }: { shape: Icon }) {
-  const [canvas, setCanvas] = useCanvasCtx();
-  const [, setShapeModify] = useShapeModifyCtx();
+  const [canvas, setCanvas] = useCanvasCtx()
+  const [, setShapeModify] = useShapeModifyCtx()
 
   const options = {
     title_dimensions: [, <h3 className={style.title}> Dimensiones </h3>],
@@ -76,14 +77,10 @@ export default function IconOptions({ shape }: { shape: Icon }) {
       title: 'Color'
     })
   }
-  const values = Object.keys(options).map(
-    (key) => options[key as keyof Omit<Icon, "type">][0]
-  );
-  const components = Object.keys(options).map(
-    (key) => options[key as keyof Omit<Icon, "type">][1]
-  );
+  const values = Object.keys(options).map(key => options[key as keyof Omit<Icon, 'type'>][0])
+  const components = Object.keys(options).map(key => options[key as keyof Omit<Icon, 'type'>][1])
   useEffect(() => {
-    let s = shape as Layer;
+    let s = shape as Layer
     s = {
       x: options.x[0],
       y: options.y[0],
@@ -92,15 +89,15 @@ export default function IconOptions({ shape }: { shape: Icon }) {
       color: options.color[0],
       height: options.height[0],
       width: options.width[0],
-      shape: options.shape[0]?.id,
-    };
+      shape: options.shape[0]?.id
+    }
 
-    const layers = canvas.layers;
-    canvas.layers = layers.map((l) => (l.id === s.id ? s : l));
-    setCanvas(JSON.parse(JSON.stringify(canvas)));
-    setShapeModify(s);
+    const c = changedLayers(canvas, s)
+    if (c) setCanvas(JSON.parse(JSON.stringify(c)))
+
+    setShapeModify(s)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, values);
+  }, values)
 
-  return <>{components.map((c, i) => cloneElement(c, { key: i }))}</>;
+  return <>{components.map((c, i) => cloneElement(c, { key: i }))}</>
 }

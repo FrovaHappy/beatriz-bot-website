@@ -8,6 +8,7 @@ import { cloneElement, useEffect } from 'react'
 import style from './index.module.scss'
 import useColorsInput from '@/components/useColorsInput'
 import { HEIGHT, LIMIT_CANVAS, WIDTH_LARGE, WIDTH_SHORT } from '.'
+import changedLayers from './changedLayers'
 export default function TextOptions({ shape }: { shape: Text }) {
   const [canvas, setCanvas] = useCanvasCtx()
   const [, setShapeModify] = useShapeModifyCtx()
@@ -147,9 +148,10 @@ export default function TextOptions({ shape }: { shape: Text }) {
       weight: options.weight[0],
       size: options.size[0]
     }
-    const layers = canvas.layers
-    canvas.layers = layers.map(l => (l.id === s.id ? s : l))
-    setCanvas(JSON.parse(JSON.stringify(canvas)))
+
+    const c = changedLayers(canvas, s)
+    if (c) setCanvas(JSON.parse(JSON.stringify(c)))
+
     setShapeModify(s)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, values)

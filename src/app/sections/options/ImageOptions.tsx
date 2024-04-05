@@ -7,6 +7,7 @@ import { HEIGHT, LIMIT_CANVAS, WIDTH_LARGE, WIDTH_SHORT } from '.'
 import useInputNumber from '@/components/useInputNumber'
 import UploadImage from '@/components/UploadImage'
 import useColorsInput from '@/components/useColorsInput'
+import changedLayers from './changedLayers'
 
 export default function ImageOptions({ shape }: { shape: Image }) {
   const [canvas, setCanvas] = useCanvasCtx()
@@ -77,9 +78,9 @@ export default function ImageOptions({ shape }: { shape: Image }) {
       id: s.id
     }
 
-    const layers = canvas.layers
-    canvas.layers = layers.map(l => (l.id === s.id ? s : l))
-    setCanvas(JSON.parse(JSON.stringify(canvas)))
+    const c = changedLayers(canvas, s)
+    if (c) setCanvas(JSON.parse(JSON.stringify(c)))
+
     setShapeModify(s)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, values)
