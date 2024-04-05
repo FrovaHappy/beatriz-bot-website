@@ -5,7 +5,6 @@ import { HtmlHTMLAttributes, PropsWithChildren, useEffect } from 'react'
 import style from './index.module.scss'
 import GeneralOptions from './GeneralOptions'
 import ImageOptions from './ImageOptions'
-import NameOptions from './NameOptions'
 import IconOptions from './IconOptions'
 
 export const LIMIT_CANVAS = 1024
@@ -30,7 +29,6 @@ export default function Options() {
       {type('text') ? <TextOptions shape={layer as Text} /> : null}
       {type('image') ? <ImageOptions shape={layer as Image} /> : null}
       {type('icon') ? <IconOptions shape={layer as Icon} /> : null}
-      {type('name') ? <NameOptions shape={layer as Name} /> : null}
     </OptionsContent>
   )
 }
