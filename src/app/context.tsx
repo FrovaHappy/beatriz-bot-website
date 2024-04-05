@@ -20,19 +20,23 @@ export function useShapeModifyCtx() {
 
 export default function Context({ children }: React.PropsWithChildren) {
   const [canvas, setCanvas] = useState(null as unknown as Canvas)
+  const [canvasFake, setCanvasFake] = useState(null as unknown as Canvas)
   const [shapeModify, setShapeModify] = useState<Layer | null>(null)
   useEffect(() => {
     const restoreCanvas = JSON.parse(window.localStorage.getItem('canvas') ?? 'null') ?? welcome
-    setCanvas(restoreCanvas)
+    setCanvasFake(restoreCanvas)
   }, [])
   useEffect(() => {
-    if (!canvas) return
-    console.log(canvas)
-    window.localStorage.setItem('canvas', JSON.stringify(canvas))
-  }, [canvas])
+    if (!canvasFake) return
+    const timeout = setTimeout(() => {
+      setCanvas(canvasFake)
+      window.localStorage.setItem('canvas', JSON.stringify(canvasFake))
+    }, 1)
+    return () => clearTimeout(timeout)
+  }, [canvasFake])
   if (!canvas) return <>building component</>
   return (
-    <HomeContext.Provider value={[canvas, setCanvas]}>
+    <HomeContext.Provider value={[canvas, setCanvasFake]}>
       <ShapeModifyContext.Provider value={[shapeModify, setShapeModify]}>{children}</ShapeModifyContext.Provider>
     </HomeContext.Provider>
   )
