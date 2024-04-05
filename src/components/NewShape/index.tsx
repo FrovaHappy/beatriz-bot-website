@@ -5,7 +5,6 @@ import style from './index.module.scss'
 import { useState } from 'react'
 import IconPlaylistAdd from '@/app/icons/IconPlaylistAdd'
 import IconTextResize from '@/app/icons/IconTextResize'
-import IconAt from '@/app/icons/IconAt'
 import IconPhoto from '@/app/icons/IconPhoto'
 import IconUserSquare from '@/app/icons/IconUserSquare'
 import IconStack from '@/app/icons/IconStack'
@@ -40,9 +39,6 @@ export default function NewShape() {
         <button onClick={onClick(defaultValue.TEXT)}>
           <IconTextResize />
           text
-        </button>
-        <button onClick={onClick(defaultValue.NAME)}>
-          <IconAt /> name
         </button>
         <button onClick={onClick(defaultValue.IMAGE)}>
           <IconPhoto /> image
