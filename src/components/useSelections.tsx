@@ -11,6 +11,7 @@ import { InputExport } from '@/types/types'
 interface Options<T> {
   id: T
   icon?: (p: React.AllHTMLAttributes<any>) => React.ReactNode
+  fontFamily?: string
   title: string
 }
 interface Props<T> extends OptionsMaskInput {
@@ -45,7 +46,7 @@ export default function useSelections<T = string>(props: Props<T>): InputExport<
               key={v.id as string}
               onClick={() => setValue(v)}
               className={`${inputStyle.props} ${style.value} ${value?.id === v.id ? style['value--active'] : ''}`}
-              style={{ height }}>
+              style={{ height, fontFamily: v.fontFamily }}>
               {IconItem ? <IconItem style={ICONS_STYLE} /> : undefined}
               {v.title}
             </div>

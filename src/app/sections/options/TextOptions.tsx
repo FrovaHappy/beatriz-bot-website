@@ -50,14 +50,14 @@ export default function TextOptions({ shape }: { shape: Text }) {
       title: 'Family',
       width: WIDTH_LARGE,
       values: [
-        { id: 'Roboto', title: 'Roboto' },
-        { id: 'DancingScript', title: 'DancingScript' },
-        { id: 'Inter', title: 'Inter' },
-        { id: 'Karla Italic', title: 'Karla Italic' },
-        { id: 'Karla', title: 'Karla' },
-        { id: 'Lato', title: 'Lato' },
-        { id: 'Nunito Italic', title: 'Nunito Italic' },
-        { id: 'Nunito', title: 'Nunito' }
+        { id: 'Roboto', title: 'Roboto', fontFamily: 'Roboto' },
+        { id: 'DancingScript', title: 'DancingScript', fontFamily: 'DancingScript' },
+        { id: 'Inter', title: 'Inter', fontFamily: 'Inter' },
+        { id: 'Karla Italic', title: 'Karla Italic', fontFamily: 'Karla Italic' },
+        { id: 'Karla', title: 'Karla', fontFamily: 'Karla' },
+        { id: 'Lato', title: 'Lato', fontFamily: 'Lato' },
+        { id: 'Nunito Italic', title: 'Nunito Italic', fontFamily: 'Nunito Italic' },
+        { id: 'Nunito', title: 'Nunito', fontFamily: 'Nunito' }
       ]
     }),
     align: useSelections<CanvasTextAlign>({
