@@ -3,7 +3,6 @@ import { userFormatting } from '../formattingText'
 
 export function renderText(text: Text, ctx: CanvasRenderingContext2D, user: User, base: Base & TextBase) {
   const { x, y, size, family, weight, limitLetters, content, align, baseline, color } = text
-  console.log(text)
   let textContent = userFormatting(content, user)
   ctx.save()
   ctx.font = `${weight} ${size}px ${family}`

@@ -25,7 +25,6 @@ export async function renderIcon(
   const path = new Path2DInstance(shapes[shape])
   const scale = (v: number) => (v * 1) / 1000
   ctx.save()
-  console.log(scale(width), scale(height))
   ctx.translate(x, y)
   ctx.scale(scale(width), scale(height))
   ctx.clip(path)

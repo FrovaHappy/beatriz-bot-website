@@ -7,7 +7,6 @@ function GenerateJson() {
   const [canvas] = useCanvasCtx()
 
   const callback = () => {
-    console.log('hola')
     const json = JSON.stringify(canvas, null, 2)
     navigator.clipboard.writeText(json)
   }

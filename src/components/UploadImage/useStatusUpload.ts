@@ -8,8 +8,7 @@ export default function useStatus(
 ) {
   const [status, setStatus] = useState<UploadStatus>("finished");
   useEffect(() => {
-    if (file === null) return;
-    console.log("valid image");
+    if (file === null) return
     setStatus("uploading");
     const useLink = async () => {
       const link = await useUpload(file);

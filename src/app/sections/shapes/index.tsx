@@ -24,7 +24,6 @@ export default function Shapes() {
         const oldIndex = shape.findIndex(person => person.id === active.id)
         const newIndex = shape.findIndex(person => person.id === over?.id)
         const listMoved = arrayMove(shape, oldIndex, newIndex)
-        console.log(listMoved)
         setCanvas({ ...canvas, layers: listMoved })
         return arrayMove(shape, oldIndex, newIndex)
       })
