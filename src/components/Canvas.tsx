@@ -33,7 +33,10 @@ export default function Canvas() {
     const ctx = ref.current?.getContext('2d')
     if (!ctx) return
     const { layers, ...base } = canvas
-    renderCanvas(layers, base, USER, ctx, Path2D, loadImage)
+    const wait = async () => {
+      await renderCanvas(layers, base, USER, ctx, Path2D, loadImage)
+    }
+    wait()
   }, [canvas])
 
   return useMemo(() => <canvas ref={ref} height={canvas.height} style={style} width={canvas.width}></canvas>, [])
