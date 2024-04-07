@@ -11,7 +11,6 @@ export default async function renderCanvas(
   Path2DInstance: typeof Path2D,
   loadImage: (path: string) => Promise<HTMLImageElement>
 ) {
-  ctx.reset()
   ctx.clearRect(0, 0, base.width, base.height)
   ctx.save()
   if (base.color) {
@@ -32,4 +31,5 @@ export default async function renderCanvas(
         break
     }
   }
+  return ctx
 }
