@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import welcome from './welcome.json'
 import { Canvas, Layer } from '@/types/Canvas.types'
 import { State } from '@/types/types'
+import { getFonts } from '@/utils/getFonts'
 
 const HomeContext = createContext<State<Canvas> | null>(null)
 const ShapeModifyContext = createContext<State<Layer | null> | null>(null)
@@ -25,6 +26,11 @@ export default function Context({ children }: React.PropsWithChildren) {
   useEffect(() => {
     const restoreCanvas = JSON.parse(window.localStorage.getItem('canvas') ?? 'null') ?? welcome
     setCanvasFake(restoreCanvas)
+
+    const load = async () => {
+      getFonts()
+    }
+    load()
   }, [])
   useEffect(() => {
     if (!canvasFake) return
