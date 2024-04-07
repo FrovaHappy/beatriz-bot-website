@@ -1,7 +1,5 @@
 import { Base, Layer, Text, TextBase, User, Image, Icon } from '@/types/Canvas.types'
 import { renderText } from './renderText'
-
-import { promises } from 'dns'
 import { renderImage } from './renderImage'
 import { renderIcon } from './renderIcon'
 
