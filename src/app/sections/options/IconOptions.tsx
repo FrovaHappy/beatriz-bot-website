@@ -80,7 +80,7 @@ export default function IconOptions({ shape }: { shape: Icon }) {
   const values = Object.keys(options).map(key => options[key as keyof Omit<Icon, 'type'>][0])
   const components = Object.keys(options).map(key => options[key as keyof Omit<Icon, 'type'>][1])
   useEffect(() => {
-    let s = shape as Layer
+    let s = shape as Layer<Icon>
     s = {
       x: options.x[0],
       y: options.y[0],
@@ -89,7 +89,7 @@ export default function IconOptions({ shape }: { shape: Icon }) {
       color: options.color[0],
       height: options.height[0],
       width: options.width[0],
-      shape: options.shape[0]?.id
+      shape: options.shape[0]?.id ?? 'circle'
     }
 
     const c = changedLayers(canvas, s)

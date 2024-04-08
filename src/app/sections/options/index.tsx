@@ -1,6 +1,5 @@
 import { useShapeModifyCtx } from '@/app/context'
 import TextOptions from './TextOptions'
-import { Icon, Image, Name, Text } from '@/types/Canvas.types'
 import { HtmlHTMLAttributes, PropsWithChildren, useEffect } from 'react'
 import style from './index.module.scss'
 import GeneralOptions from './GeneralOptions'
@@ -26,9 +25,9 @@ export default function Options() {
   return (
     <OptionsContent>
       {!shape ? <GeneralOptions /> : null}
-      {type('text') ? <TextOptions shape={layer as Text} /> : null}
-      {type('image') ? <ImageOptions shape={layer as Image} /> : null}
-      {type('icon') ? <IconOptions shape={layer as Icon} /> : null}
+      {type('text') ? <TextOptions shape={layer} /> : null}
+      {type('image') ? <ImageOptions shape={layer} /> : null}
+      {type('icon') ? <IconOptions shape={layer} /> : null}
     </OptionsContent>
   )
 }

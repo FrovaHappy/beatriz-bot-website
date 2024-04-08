@@ -66,7 +66,7 @@ export default function ImageOptions({ shape }: { shape: Image }) {
   const values = Object.keys(options).map(key => options[key as keyof Omit<Image, 'type' | 'color'>][0])
   const components = Object.keys(options).map(key => options[key as keyof Omit<Image, 'type' | 'color'>][1])
   useEffect(() => {
-    let s = shape as Layer
+    let s = shape as Layer<Image>
     s = {
       img: options.img[0],
       height: options.height[0],

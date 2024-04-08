@@ -133,18 +133,18 @@ export default function TextOptions({ shape }: { shape: Text }) {
   const values = Object.keys(options).map(key => options[key as keyof Omit<Text, 'type'>][0])
   const components = Object.keys(options).map(key => options[key as keyof Omit<Text, 'type'>][1])
   useEffect(() => {
-    let s = shape as Layer
+    let s = shape as Layer<Text>
     s = {
       x: options.x[0],
       y: options.y[0],
       type: s.type,
       id: s.id,
-      align: options.align[0]?.id,
-      baseline: options.baseline[0]?.id,
+      align: options.align[0]?.id ?? 'left',
+      baseline: options.baseline[0]?.id ?? 'alphabetic',
       color: options.color[0],
-      family: options.family[0]?.id,
+      family: options.family[0]?.id ?? 'Roboto',
       limitLetters: options.limitLetters[0],
-      content: options.content[0],
+      content: options.content[0] ?? '',
       weight: options.weight[0],
       size: options.size[0]
     }
