@@ -17,7 +17,7 @@ export interface Coordinate {
   y: number
 }
 export interface Canvas extends Base, TextBase {
-  layers: Array<Layer>
+  layers: Layer[]
 }
 export type Layer<T = Image | Icon | Text> = T & { id: number }
 export interface Image extends Coordinate, Base {
