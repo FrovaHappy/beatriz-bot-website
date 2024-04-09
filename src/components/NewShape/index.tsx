@@ -1,5 +1,5 @@
 import { useCanvasCtx, useShapeModifyCtx } from '@/app/context'
-import { Name, Text, Image, Icon } from '@/types/Canvas.types'
+import { Text, Image, Icon } from '@/types/Canvas.types'
 import defaultValue from './defaultsValues'
 import style from './index.module.scss'
 import { useState } from 'react'
@@ -14,7 +14,7 @@ export default function NewShape() {
   const [canvas, setCanvas] = useCanvasCtx()
   const [, setShapeModify] = useShapeModifyCtx()
 
-  function onClick(defaultValue: Text | Name | Image | Icon) {
+  function onClick(defaultValue: Text | Image | Icon) {
     return () => {
       const layer = { ...defaultValue, id: Date.now() }
       canvas.layers.push(layer)

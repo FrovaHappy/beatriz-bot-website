@@ -1,4 +1,4 @@
-import { Icon, Name, Text, Image } from "@/types/Canvas.types";
+import { Icon, Text, Image } from '@/types/Canvas.types'
 
 const TEXT: Text = {
   type: 'text',
@@ -23,17 +23,17 @@ const ICON: Icon = {
 }
 
 const IMAGE: Image = {
-  type: "image",
+  type: 'image',
   height: 200,
   width: 200,
   x: 0,
   y: 0,
-  img: undefined,
-};
+  img: undefined
+}
 
 const defaultValue = {
   TEXT,
   ICON,
   IMAGE
 }
-export default defaultValue;
+export default defaultValue
