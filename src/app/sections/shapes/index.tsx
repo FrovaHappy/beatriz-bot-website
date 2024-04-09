@@ -1,13 +1,12 @@
 'use client'
 import { DndContext, DragEndEvent, closestCenter, MeasuringStrategy } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable'
-import React, { useEffect, useMemo, useState } from 'react'
-import { Image, Text, Name, Icon } from '@/types/Canvas.types'
+import React, { useEffect, useState } from 'react'
+import { Image, Text, Icon, Layer } from '@/types/Canvas.types'
 import style from './Shapes.module.scss'
 import Shape from './Shape'
 import { useCanvasCtx, useShapeModifyCtx } from '@/app/context'
 import { addIdOfLayers } from '@/app/canvasParser'
-type Shape = Partial<Image & Text & Name & Icon> & { id: number }
 
 export default function Shapes() {
   const [canvas, setCanvas] = useCanvasCtx()
@@ -34,15 +33,23 @@ export default function Shapes() {
     <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
       <ul className={style.content}>
         <SortableContext items={list} strategy={verticalListSortingStrategy}>
-          {list.map(shape => (
-            <Shape
-              key={shape.id}
-              id={shape.id}
-              icon={shape.type!}
-              title={shape.shape ?? shape.content ?? shape.nameType ?? `${shape.width} x ${shape.height}`}
-              image={shape.img}
-            />
-          ))}
+          {list.map(shape => {
+            const title = () => {
+              switch (shape.type) {
+                case 'image':
+                  shape = shape as Layer<Image>
+                  return `${shape.width} x ${shape.height}`
+                case 'icon':
+                  shape = shape as Layer<Icon>
+                  return shape.shape
+                case 'text':
+                  shape = shape as Layer<Text>
+                  return shape.content
+              }
+            }
+            const img = (shape as Layer<Image>).img ?? undefined
+            return <Shape key={shape.id} id={shape.id} icon={shape.type!} title={title()} image={img} />
+          })}
         </SortableContext>
       </ul>
     </DndContext>
